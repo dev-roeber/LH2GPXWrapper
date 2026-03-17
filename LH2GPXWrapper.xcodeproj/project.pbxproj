@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9E7517152F690B6700E212A7 /* LocationHistoryConsumerAppSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 9E7517142F690B6700E212A7 /* LocationHistoryConsumerAppSupport */; };
+		9E7517172F690B6700E212A7 /* LocationHistoryConsumerDemoSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 9E7517162F690B6700E212A7 /* LocationHistoryConsumerDemoSupport */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		9E7516F72F69097200E212A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E7517152F690B6700E212A7 /* LocationHistoryConsumerAppSupport in Frameworks */,
+				9E7517172F690B6700E212A7 /* LocationHistoryConsumerDemoSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 			);
 			name = LH2GPXWrapper;
 			packageProductDependencies = (
+				9E7517142F690B6700E212A7 /* LocationHistoryConsumerAppSupport */,
+				9E7517162F690B6700E212A7 /* LocationHistoryConsumerDemoSupport */,
 			);
 			productName = LH2GPXWrapper;
 			productReference = 9E7516E92F69096F00E212A7 /* LH2GPXWrapper.app */;
@@ -195,6 +204,9 @@
 			);
 			mainGroup = 9E7516E02F69096F00E212A7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9E7517132F690B6700E212A7 /* XCLocalSwiftPackageReference "../../../Code/LocationHistory2GPX-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9E7516EA2F69096F00E212A7 /* Products */;
 			projectDirPath = "";
@@ -400,6 +412,7 @@
 				DEVELOPMENT_TEAM = XAGR3K7XDJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "LH2GPX";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +445,7 @@
 				DEVELOPMENT_TEAM = XAGR3K7XDJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "LH2GPX";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -578,6 +592,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		9E7517132F690B6700E212A7 /* XCLocalSwiftPackageReference "../../../Code/LocationHistory2GPX-iOS" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Code/LocationHistory2GPX-iOS";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9E7517142F690B6700E212A7 /* LocationHistoryConsumerAppSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocationHistoryConsumerAppSupport;
+		};
+		9E7517162F690B6700E212A7 /* LocationHistoryConsumerDemoSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocationHistoryConsumerDemoSupport;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9E7516E12F69096F00E212A7 /* Project object */;
 }
