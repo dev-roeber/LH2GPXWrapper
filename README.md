@@ -38,7 +38,7 @@ Genutzte Produkte:
 - **Version:** 1.0 (Build 1)
 - **Deployment Target:** iOS 26.2
 - **Signing:** Automatic (Team XAGR3K7XDJ)
-- **App Icon:** Platzhalter (1024x1024, wird spaeter durch finales Design ersetzt)
+- **App Icon:** Map-Pin + "LH2GPX", 1024x1024 (Interims-Design, kein Gradient-Placeholder mehr)
 - **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, keine Datenerhebung, UserDefaults-Zugriff deklariert
 
 ## Lokaler Build
@@ -86,7 +86,7 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 
 ## Was bewusst noch nicht vorbereitet ist
 
-- kein finales App-Icon-Design (nur Platzhalter)
+- kein finales App-Icon-Design (Interims-Icon vorhanden, finales Branding-Design steht aus)
 - keine Lokalisierung
 - keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
 
