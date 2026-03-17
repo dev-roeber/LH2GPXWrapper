@@ -69,11 +69,24 @@ Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSuppo
 - Konsistente Leer-/Fehler-/Ladezustaende
 - Edge-Case-Hardening: defensive Guards, robuste Formatierung
 
+## TestFlight + App Store Readiness (Phase 20)
+
+Lokal verifiziert (2026-03-17):
+- `xcodebuild archive` erfolgreich (v1.0, Build 1)
+- `PrivacyInfo.xcprivacy` konform (kein Tracking, UserDefaults CA92.1)
+- App Review Guidelines geprueft: konform
+
+Noch ausstehend (erfordern ASC-Zugang):
+- Finales App-Icon-Design (Platzhalter muss ersetzt werden)
+- App Store Connect Projekt anlegen
+- Screenshots (iPhone 6.7", iPad Pro 13")
+- Upload / TestFlight-Beta
+
+Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
+
 ## Was bewusst noch nicht vorbereitet ist
 
 - kein finales App-Icon-Design (nur Platzhalter)
-- kein App Store Connect Setup
-- keine TestFlight-Distribution
 - keine Lokalisierung
 - keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
 
