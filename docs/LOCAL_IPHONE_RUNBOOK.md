@@ -122,8 +122,8 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 | Geraet | iOS-Version | Deploy | Demo | Import (app_export.json) | Import (location-history.json) | Persistenz | Karte |
 |--------|-------------|--------|------|--------------------------|-------------------------------|-----------|-------|
 | iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
-| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
-| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
+| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | **offen** | ✅ |
+| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | **offen** | ✅ |
 
 **Realer iPhone-Befund (2026-03-17):**
 - App laeuft auf iPhone 15 Pro Max und iPhone 12 Pro Max
@@ -148,9 +148,51 @@ Alle anderen Flows sind verifiziert (2026-03-17):
 - [x] Ersten Eintrag tippen → Day-Detail + Karte
 - [x] location-history.json (Google-Format) importieren → klare Fehlermeldung erscheint
 - [x] Import-State anzeigen → leerer Zustand sauber
-- [ ] App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt
+- [ ] App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt (Persistenz/Restore manuell zu verifizieren)
 
 Befunde in dieses Runbook als Tabelle nachtragen.
+
+---
+
+## Persistenz / Restore – Testplan (manuell auf Geraet)
+
+### Code-Review-Status (2026-03-17)
+
+Die Restore-Logik wurde vollstaendig code-reviewed. Kein Bug gefunden.
+Kein Zugriff auf physisches Geraet für direkten Restore-Test.
+
+**Implementierung:** `ImportBookmarkStore` + `restoreBookmarkedFile()` in ContentView.
+- iOS-Bookmarks ohne Security-Scope (korrekt fuer iOS)
+- Stale-Bookmark wird automatisch erneuert
+- Bei Fehler: Bookmark wird gecleant, Fehlermeldung erscheint
+- `showFailure()` setzt `isLoading = false` korrekt
+
+### Manueller Restore-Testplan
+
+Auf **jedem Geraet** folgenden Flow pruefen und Ergebnis nachtragen:
+
+**Positiver Pfad:**
+1. `app_export.json` importieren → Day-Liste erscheint
+2. App vollstaendig schliessen (aus App-Switcher entfernen)
+3. App neu starten
+4. Erwartet: Datei wird automatisch wiederhergestellt, Day-Liste erscheint ohne erneuten Import
+
+**Fehler-/Fallback-Pfad:**
+5. Datei aus Files.app loeschen oder verschieben
+6. App neu starten
+7. Erwartet: Fehlermeldung "Unable to restore previous import", kein Absturz, Import-Zustand sauber
+
+**Clear-Pfad:**
+8. Clear-Button tippen
+9. App schliessen und neu starten
+10. Erwartet: Import-Zustand, kein Restore, keine alte Datei
+
+### Befunde (offen)
+
+| Geraet | Positiver Restore | Datei-fehlt-Fallback | Clear-nach-Restore |
+|--------|------------------|---------------------|-------------------|
+| iPhone 15 Pro Max | offen | offen | offen |
+| iPhone 12 Pro Max | offen | offen | offen |
 
 ---
 
