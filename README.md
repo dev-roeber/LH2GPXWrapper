@@ -28,7 +28,7 @@ Das Xcode-Projekt referenziert das Core-Repo als lokales Swift Package:
 ```
 
 Genutzte Produkte:
-- `LocationHistoryConsumerAppSupport` – Produkt-UI (NavigationSplitView, Dashboard, Day-Detail), Session, Loader, Bookmark-Persistenz
+- `LocationHistoryConsumerAppSupport` – Produkt-UI (NavigationSplitView, Dashboard, Day-Detail, Map), Session, Loader, Bookmark-Persistenz
 - `LocationHistoryConsumerDemoSupport` – Demo-Fixture-Loader
 
 ## Bundle-Konfiguration
@@ -57,12 +57,13 @@ xcodebuild -project LH2GPXWrapper.xcodeproj \
   build
 ```
 
-## Produkt-UI (Phase 17)
+## Produkt-UI (Phase 17 + 18)
 
 Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSupport`):
 - NavigationSplitView mit Day-Liste und Detail-Pane
 - Overview-Dashboard mit Statistik-Grid
 - Day-Detail mit strukturierten Sections und Cards
+- Karten-MVP: MapKit-Ansicht im Day-Detail mit Pfad-Polylines und Visit-Markern
 - Toolbar-Aktionen mit SF-Symbol-Icons
 - Konsistente Leer-/Fehler-/Ladezustaende
 
@@ -72,7 +73,7 @@ Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSuppo
 - kein App Store Connect Setup
 - keine TestFlight-Distribution
 - keine Lokalisierung
-- keine Karten-Integration (kommt in Phase 18)
+- keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
 
 ## Roadmap
 
