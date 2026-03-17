@@ -54,7 +54,7 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Import your location history")
                     .font(.title2.weight(.semibold))
-                Text("Open a local app_export.json file to explore your location history offline.")
+                Text("Open a local app_export.json file created with the LocationHistory2GPX tool to explore your location history offline.")
                     .font(.body)
                     .foregroundStyle(.secondary)
             }
