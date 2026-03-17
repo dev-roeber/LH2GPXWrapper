@@ -119,24 +119,36 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 
 ## Geraete-Verifikationsstatus (Stand 2026-03-17)
 
-| Geraet | iOS-Version | Deploy | Demo | Import | Persistenz | Karte |
-|--------|-------------|--------|------|--------|-----------|-------|
-| iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | offen | ✅ |
-| iPhone 15 Pro Max | – | **nicht verifiziert** | – | – | – | – |
-| iPhone 12 Pro Max | – | **nicht verifiziert** | – | – | – | – |
+| Geraet | iOS-Version | Deploy | Demo | Import (app_export.json) | Import (location-history.json) | Persistenz | Karte |
+|--------|-------------|--------|------|--------------------------|-------------------------------|-----------|-------|
+| iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
+| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
+| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
 
-**Ausstehend:** Deploy + voller Flow auf iPhone 15 Pro Max und iPhone 12 Pro Max.
-Diese Geraete unterstuetzen iOS 26, haben aber keinen Simulator-Aequivalent in Xcode.
+**Realer iPhone-Befund (2026-03-17):**
+- App laeuft auf iPhone 15 Pro Max und iPhone 12 Pro Max
+- Demo-Daten, Kartenansicht, Day-Detail, Scrollen funktionieren
+- Import von `03_03_2026_location-history.json` schlug fehl → Ursache: Google-Takeout-Format (Array-Root), nicht app_export.json
+- Nach Fix: Klare Fehlermeldung statt generischem Decode-Fehler
 
-Wenn das Geraet verbunden ist, koennen alle Flows manuell durchgefuehrt werden:
+**Unterstuetztes Import-Format:**
+- ✅ `app_export.json` – erzeugt von [LocationHistory2GPX](https://github.com/dev-roeber/LocationHistory2GPX) Python-Tool
+- ❌ `location-history.json` – roher Google Takeout Export (Array-Root, camelCase): wird klar abgelehnt
 
-1. Build + Install per Xcode
-2. App starten → Import-Zustand sichtbar?
-3. Demo-Daten laden → Day-Liste sichtbar?
-4. Ersten Eintrag tippen → Day-Detail + Karte?
+**Noch offen:**
+
+Persistenz / Restore ist noch nicht auf echtem Geraet verifiziert:
+
 5. App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt?
-6. Ungueltiges JSON importieren → Fehlermeldung sichtbar?
-7. Import-State anzeigen → leerer Zustand sauber?
+
+Alle anderen Flows sind verifiziert (2026-03-17):
+- [x] Build + Install per Xcode
+- [x] App starten → Import-Zustand sichtbar
+- [x] Demo-Daten laden → Day-Liste sichtbar
+- [x] Ersten Eintrag tippen → Day-Detail + Karte
+- [x] location-history.json (Google-Format) importieren → klare Fehlermeldung erscheint
+- [x] Import-State anzeigen → leerer Zustand sauber
+- [ ] App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt
 
 Befunde in dieses Runbook als Tabelle nachtragen.
 

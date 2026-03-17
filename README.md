@@ -69,16 +69,17 @@ Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSuppo
 - Konsistente Leer-/Fehler-/Ladezustaende
 - Edge-Case-Hardening: defensive Guards, robuste Formatierung
 
-## Lokaler iPhone-Betrieb (aktueller Fokus)
+## Lokaler iPhone-Betrieb
 
-Simulator-Status (2026-03-17):
+Verifiziert (2026-03-17):
 - `xcodebuild build` erfolgreich (generic/platform=iOS)
-- Unit-Tests bestanden (iPhone 17 Pro Max, iOS 26.3)
-- Demo-Daten, Day-Liste, Day-Detail, Karte, Import-Zustand: verifiziert
+- iPhone 15 Pro Max + iPhone 12 Pro Max: Deploy, Demo, Karte, Day-Detail, Scrollen
+- Import `app_export.json`: funktioniert
+- Import `location-history.json` (Google Takeout): wird klar abgelehnt mit verstaendlicher Fehlermeldung
+- Persistenz / Restore nach App-Neustart: offen (manuell zu pruefen)
 
-Geraete-Status:
-- iPhone 15 Pro Max: noch nicht verifiziert (kein Simulator fuer iOS 26.x; auf echtem Geraet zu pruefen)
-- iPhone 12 Pro Max: noch nicht verifiziert (kein Simulator fuer iOS 26.x; auf echtem Geraet zu pruefen)
+Unterstuetztes Import-Format: nur `app_export.json` (erzeugt von LocationHistory2GPX Python-Tool).
+Rohe Google-Takeout-Dateien werden nicht unterstuetzt und erzeugen eine erklaerende Fehlermeldung.
 
 Vollstaendiges Device-Runbook: `docs/LOCAL_IPHONE_RUNBOOK.md`
 
