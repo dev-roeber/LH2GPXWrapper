@@ -10,10 +10,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if session.content != nil {
-                AppContentSplitView(
-                    session: $session,
-                    sourceHint: "Open another file replaces the current content. Load Demo switches back to the bundled sample. Clear returns to the import-first start state."
-                )
+                AppContentSplitView(session: $session)
             } else if session.isLoading {
                 ProgressView("Opening app export...")
             } else {
@@ -22,15 +19,21 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
-                Button(openButtonTitle) {
+                Button {
                     isImportingFile = true
+                } label: {
+                    Label(openButtonTitle, systemImage: "doc.badge.plus")
                 }
-                Button(demoButtonTitle) {
+                Button {
                     loadBundledDemo()
+                } label: {
+                    Label(demoButtonTitle, systemImage: "testtube.2")
                 }
                 if session.hasLoadedContent || session.message != nil {
-                    Button("Clear") {
+                    Button {
                         clearCurrentContent()
+                    } label: {
+                        Label("Clear", systemImage: "xmark.circle")
                     }
                 }
             }
@@ -49,9 +52,9 @@ struct ContentView: View {
     private var emptyStateView: some View {
         VStack(alignment: .leading, spacing: 18) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Open an app_export.json file")
+                Text("Import your location history")
                     .font(.title2.weight(.semibold))
-                Text("This app reads local LocationHistory2GPX app exports offline.")
+                Text("Open a local app_export.json file to explore your location history offline.")
                     .font(.body)
                     .foregroundStyle(.secondary)
             }
@@ -63,15 +66,21 @@ struct ContentView: View {
             }
 
             VStack(alignment: .leading, spacing: 10) {
-                Button("Open app_export.json") {
+                Button {
                     isImportingFile = true
+                } label: {
+                    Label("Open app_export.json", systemImage: "doc.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
-                Button("Load Demo Data", action: loadBundledDemo)
-                    .buttonStyle(.bordered)
+                Button(action: loadBundledDemo) {
+                    Label("Load Demo Data", systemImage: "testtube.2")
+                }
+                .buttonStyle(.bordered)
                 if session.message != nil {
-                    Button("Clear", action: clearCurrentContent)
-                        .buttonStyle(.bordered)
+                    Button(action: clearCurrentContent) {
+                        Label("Clear", systemImage: "xmark.circle")
+                    }
+                    .buttonStyle(.bordered)
                 }
             }
         }
@@ -81,12 +90,12 @@ struct ContentView: View {
     }
 
     private var openButtonTitle: String {
-        session.hasLoadedContent ? "Open Another File" : "Open app_export.json"
+        session.hasLoadedContent ? "Open Another File" : "Open File"
     }
 
     private var demoButtonTitle: String {
         session.source == .demoFixture(name: AppContentLoader.defaultDemoFixtureName)
-            ? "Reload Demo Data" : "Load Demo Data"
+            ? "Reload Demo" : "Demo Data"
     }
 
     private func loadBundledDemo() {
