@@ -57,15 +57,17 @@ xcodebuild -project LH2GPXWrapper.xcodeproj \
   build
 ```
 
-## Produkt-UI (Phase 17 + 18)
+## Produkt-UI (Phase 17–19)
 
 Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSupport`):
 - NavigationSplitView mit Day-Liste und Detail-Pane
 - Overview-Dashboard mit Statistik-Grid
 - Day-Detail mit strukturierten Sections und Cards
 - Karten-MVP: MapKit-Ansicht im Day-Detail mit Pfad-Polylines und Visit-Markern
+- VoiceOver-Accessibility: semantische Labels und Gruppierung fuer alle Kernelemente
 - Toolbar-Aktionen mit SF-Symbol-Icons
 - Konsistente Leer-/Fehler-/Ladezustaende
+- Edge-Case-Hardening: defensive Guards, robuste Formatierung
 
 ## Was bewusst noch nicht vorbereitet ist
 
