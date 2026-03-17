@@ -79,7 +79,7 @@ xcodebuild test \
 | Import-State | verifiziert (Screenshot 01) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Liste | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Detail + Karte | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
-| Persistenz / Restore | noch offen (manuell auf Geraet zu pruefen) | – |
+| Persistenz / Restore | verifiziert (2026-03-17) | iPhone 15 Pro Max, iPhone 12 Pro Max |
 
 ---
 
@@ -122,8 +122,8 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 | Geraet | iOS-Version | Deploy | Demo | Import (app_export.json) | Import (location-history.json) | Persistenz | Karte |
 |--------|-------------|--------|------|--------------------------|-------------------------------|-----------|-------|
 | iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
-| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | **offen** | ✅ |
-| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | **offen** | ✅ |
+| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | ✅ | ✅ |
+| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | ✅ | ✅ |
 
 **Realer iPhone-Befund (2026-03-17):**
 - App laeuft auf iPhone 15 Pro Max und iPhone 12 Pro Max
@@ -135,20 +135,16 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - ✅ `app_export.json` – erzeugt von [LocationHistory2GPX](https://github.com/dev-roeber/LocationHistory2GPX) Python-Tool
 - ❌ `location-history.json` – roher Google Takeout Export (Array-Root, camelCase): wird klar abgelehnt
 
-**Noch offen:**
+**Vollstaendig verifiziert (2026-03-17):**
 
-Persistenz / Restore ist noch nicht auf echtem Geraet verifiziert:
-
-5. App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt?
-
-Alle anderen Flows sind verifiziert (2026-03-17):
+Alle Flows sind auf echtem Geraet verifiziert:
 - [x] Build + Install per Xcode
 - [x] App starten → Import-Zustand sichtbar
 - [x] Demo-Daten laden → Day-Liste sichtbar
 - [x] Ersten Eintrag tippen → Day-Detail + Karte
 - [x] location-history.json (Google-Format) importieren → klare Fehlermeldung erscheint
 - [x] Import-State anzeigen → leerer Zustand sauber
-- [ ] App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt (Persistenz/Restore manuell zu verifizieren)
+- [x] App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt (Persistenz/Restore verifiziert 2026-03-17)
 
 Befunde in dieses Runbook als Tabelle nachtragen.
 
@@ -191,8 +187,8 @@ Auf **jedem Geraet** folgenden Flow pruefen und Ergebnis nachtragen:
 
 | Geraet | Positiver Restore | Datei-fehlt-Fallback | Clear-nach-Restore |
 |--------|------------------|---------------------|-------------------|
-| iPhone 15 Pro Max | offen | offen | offen |
-| iPhone 12 Pro Max | offen | offen | offen |
+| iPhone 15 Pro Max | ✅ 2026-03-17 | ✅ 2026-03-17 | ✅ 2026-03-17 |
+| iPhone 12 Pro Max | ✅ 2026-03-17 | ✅ 2026-03-17 | ✅ 2026-03-17 |
 
 ---
 

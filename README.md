@@ -76,7 +76,7 @@ Verifiziert (2026-03-17):
 - iPhone 15 Pro Max + iPhone 12 Pro Max: Deploy, Demo, Karte, Day-Detail, Scrollen
 - Import `app_export.json`: funktioniert
 - Import `location-history.json` (Google Takeout): wird klar abgelehnt mit verstaendlicher Fehlermeldung
-- Persistenz / Restore nach App-Neustart: offen (manuell zu pruefen)
+- Persistenz / Restore nach App-Neustart: verifiziert (iPhone 15 Pro Max + iPhone 12 Pro Max, 2026-03-17)
 
 Unterstuetztes Import-Format: nur `app_export.json` (erzeugt von LocationHistory2GPX Python-Tool).
 Rohe Google-Takeout-Dateien werden nicht unterstuetzt und erzeugen eine erklaerende Fehlermeldung.
