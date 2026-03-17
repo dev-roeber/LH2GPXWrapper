@@ -47,9 +47,9 @@ Kein bekannter Review-Blocker.
 - [x] Privacy / Compliance geprueft
 - [x] App Review Guidelines geprueft
 
-### Lokal – noch offen (manuell, kein ASC nötig)
+### Lokal – erledigt (Screenshots)
 
-- [ ] Screenshots erstellen (Simulator-Workflow unten dokumentiert)
+- [x] Screenshots erstellt (2026-03-17, via UI-Test, docs/appstore-screenshots/)
 
 ### Extern – erfordern App Store Connect / Apple-Zugang
 
@@ -68,56 +68,68 @@ Kein bekannter Review-Blocker.
 
 ## Screenshots – lokaler Simulator-Workflow
 
-Screenshots koennen lokal mit dem iOS-Simulator erstellt werden.
-Die App-Interaktion (Demo-Modus) ist manuell erforderlich.
+### Erstellte Screenshots (2026-03-17)
+
+Screenshots wurden via UI-Test (`LH2GPXWrapperUITests/testAppStoreScreenshots`) erzeugt
+und liegen im Repo unter `docs/appstore-screenshots/`:
+
+| Datei | Inhalt |
+|-------|--------|
+| `iphone/01_import_state.png` | Import / Leer-Zustand |
+| `iphone/02_day_list.png` | Day-Liste nach Demo-Daten-Load |
+| `iphone/03_day_detail.png` | Day-Detail mit Karte |
+| `iphone/04_day_detail_stats.png` | Day-Detail gescrollt (Stats + Sections) |
+| `ipad/01_import_state.png` | Import / Leer-Zustand |
+| `ipad/02_day_list.png` | Day-Liste nach Demo-Daten-Load |
+| `ipad/03_day_detail.png` | Day-Detail mit Karte |
+| `ipad/04_day_detail_stats.png` | Day-Detail gescrollt (Stats + Sections) |
 
 ### Erforderliche Geräteklassen (App Store Connect)
 
-| Klasse | Auflosung | Simulator |
-|--------|-----------|-----------|
-| iPhone 6.9" | 1320 × 2868 | iPhone 17 Pro Max (UDID: `013AF8FF-B334-4855-BFB7-12C3C1FD6B2A`) |
-| iPad Pro 13" | 2064 × 2752 | iPad Pro 13-inch M4 (UDID: `342C95A4-7AFF-43AF-A3C0-EB370DF819C9`) |
+| Klasse | Auflosung | Geraet (generisch) | Lokale UDID (Stand 2026-03-17, iOS 26.3.1) |
+|--------|-----------|--------------------|--------------------------------------------|
+| iPhone 6.9" | 1320 × 2868 | iPhone 17 Pro Max | `F671FA96-892A-4849-AD86-3EE9FF8FEB36` |
+| iPad Pro 13" | 2752 × 2064 | iPad Pro 13-inch (M5) | `D381D195-1B2D-47C9-98E6-9C07F0C6A857` |
 
 Mindestens 1 iPhone-Klasse ist Pflicht. iPad-Screenshots sind empfohlen, da die App
 TARGETED_DEVICE_FAMILY = 1,2 (iPhone + iPad) hat.
 
-### Schritte
-
+**Hinweis zu UDIDs:** UDIDs sind maschinenspezifisch. Den passenden Simulator finden:
 ```bash
-# 1. Simulator starten
-xcrun simctl boot 013AF8FF-B334-4855-BFB7-12C3C1FD6B2A
-open -a Simulator
-
-# 2. App fuer Simulator bauen und installieren
-xcodebuild build \
-  -project LH2GPXWrapper.xcodeproj \
-  -scheme LH2GPXWrapper \
-  -destination 'platform=iOS Simulator,id=013AF8FF-B334-4855-BFB7-12C3C1FD6B2A' \
-  -derivedDataPath /tmp/sim_build
-
-APP=$(find /tmp/sim_build -name "LH2GPXWrapper.app" | head -1)
-xcrun simctl install booted "$APP"
-
-# 3. App starten
-xcrun simctl launch booted de.roeber.LH2GPXWrapper
-
-# 4. Manuell im Simulator: "Demo Data" laden, Tage auswaehlen, Detail oeffnen
-# 5. Screenshots
-mkdir -p ~/Desktop/LH2GPX_Screenshots
-xcrun simctl io booted screenshot ~/Desktop/LH2GPX_Screenshots/01_dashboard.png
-# … (nach jeder relevanten Screen-Navigation)
-
-# Fuer iPad (gleiches Vorgehen mit anderer UDID):
-xcrun simctl boot 342C95A4-7AFF-43AF-A3C0-EB370DF819C9
+xcrun simctl list devices available "iOS 26.3" | grep "iPhone 17 Pro Max\|iPad Pro 13"
 ```
 
-### Empfohlene Screenshot-Screens
+### Screenshots reproduzieren (UI-Test)
 
-1. Dashboard / Startansicht (nach Demo-Daten-Load)
-2. Day-Liste mit mehreren Eintraegen
-3. Day-Detail mit strukturierten Sections
-4. Day-Detail mit Karte + Pfad (Map-View)
-5. Import-Dialog oder Leer-/Startzustand
+```bash
+# iPhone 17 Pro Max
+# In LH2GPXWrapperUITests/LH2GPXWrapperUITests.swift: deviceFolder = "iphone" (Standard)
+xcodebuild test \
+  -project LH2GPXWrapper.xcodeproj \
+  -scheme LH2GPXWrapper \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' \
+  -only-testing:LH2GPXWrapperUITests/LH2GPXWrapperUITests/testAppStoreScreenshots
+
+# iPad Pro 13-inch
+# In LH2GPXWrapperUITests/LH2GPXWrapperUITests.swift: deviceFolder auf "ipad" aendern
+xcodebuild test \
+  -project LH2GPXWrapper.xcodeproj \
+  -scheme LH2GPXWrapper \
+  -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M5),OS=latest' \
+  -only-testing:LH2GPXWrapperUITests/LH2GPXWrapperUITests/testAppStoreScreenshots
+
+# Output liegt in /tmp/lh2gpx_screenshots/{iphone,ipad}/
+# Danach kopieren:
+cp /tmp/lh2gpx_screenshots/iphone/*.png docs/appstore-screenshots/iphone/
+cp /tmp/lh2gpx_screenshots/ipad/*.png docs/appstore-screenshots/ipad/
+```
+
+### Screenshot-Screens
+
+1. `01_import_state` – Import-/Leer-Zustand beim App-Start
+2. `02_day_list` – Day-Liste nach Demo-Daten-Load
+3. `03_day_detail` – Day-Detail-Ansicht mit Karte und Pfad
+4. `04_day_detail_stats` – Day-Detail gescrollt mit Stats und Sections
 
 ---
 

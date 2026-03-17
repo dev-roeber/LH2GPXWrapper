@@ -1,41 +1,79 @@
-//
-//  LH2GPXWrapperUITests.swift
-//  LH2GPXWrapperUITests
-//
-//  Created by Sebastian on 17.03.26.
-//
-
 import XCTest
 
 final class LH2GPXWrapperUITests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    // MARK: - App Store Screenshots
+    //
+    // Run on iPhone 17 Pro Max for iphone/ screenshots.
+    // Run on iPad Pro 13-inch (M5) for ipad/ screenshots.
+    //
+    // The output path suffix (iphone/ipad) must be adjusted per run.
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testAppStoreScreenshots() throws {
+        // Adjust per simulator run: "iphone" or "ipad"
+        let deviceFolder = "iphone"
+        let outputDir = "/tmp/lh2gpx_screenshots/\(deviceFolder)"
+        try FileManager.default.createDirectory(
+            atPath: outputDir, withIntermediateDirectories: true
+        )
+
         let app = XCUIApplication()
         app.launch()
+        sleep(1)
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // 1. Import / empty state
+        saveScreenshot(app, to: "\(outputDir)/01_import_state.png")
+
+        // 2. Load Demo Data
+        let demoButton = app.buttons.matching(
+            NSPredicate(format: "label CONTAINS 'Demo Data'")
+        ).firstMatch
+        guard demoButton.waitForExistence(timeout: 5) else {
+            XCTFail("Demo button not found"); return
+        }
+        demoButton.tap()
+        sleep(3)
+
+        // On iPhone: go back to see the day list (auto-navigates to detail)
+        // On iPad: back button may not exist – skip
+        let backButton = app.navigationBars.buttons.firstMatch
+        if backButton.exists && backButton.isHittable {
+            backButton.tap()
+            sleep(1)
+        }
+
+        // 3. Day list / overview
+        saveScreenshot(app, to: "\(outputDir)/02_day_list.png")
+
+        // 4. Tap first day cell (non-fatal: iPad may not need tap)
+        let firstCell = app.cells.firstMatch
+        if firstCell.waitForExistence(timeout: 5) {
+            firstCell.tap()
+            sleep(2)
+        }
+
+        // 5. Day detail – top (map)
+        saveScreenshot(app, to: "\(outputDir)/03_day_detail.png")
+
+        // 6. Day detail – scrolled (stats + sections)
+        app.swipeUp()
+        sleep(1)
+        saveScreenshot(app, to: "\(outputDir)/04_day_detail_stats.png")
     }
 
-    @MainActor
-    func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
+    // MARK: - Helpers
+
+    private func saveScreenshot(_ app: XCUIApplication, to path: String) {
+        let screenshot = XCUIScreen.main.screenshot()
+        do {
+            try screenshot.pngRepresentation.write(to: URL(fileURLWithPath: path))
+        } catch {
+            XCTFail("Screenshot save failed: \(error)")
         }
     }
 }

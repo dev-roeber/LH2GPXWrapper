@@ -76,10 +76,13 @@ Lokal verifiziert (2026-03-17):
 - `PrivacyInfo.xcprivacy` konform (kein Tracking, UserDefaults CA92.1)
 - App Review Guidelines geprueft: konform
 
+Lokal abgeschlossen (2026-03-17):
+- App Icon: Map-Pin + "LH2GPX" (kein Gradient-Placeholder mehr)
+- Screenshots erstellt: `docs/appstore-screenshots/` (iPhone 17 Pro Max, iPad Pro 13")
+
 Noch ausstehend (erfordern ASC-Zugang):
-- Finales App-Icon-Design (Platzhalter muss ersetzt werden)
 - App Store Connect Projekt anlegen
-- Screenshots (iPhone 6.7", iPad Pro 13")
+- Screenshots in ASC hochladen
 - Upload / TestFlight-Beta
 
 Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
