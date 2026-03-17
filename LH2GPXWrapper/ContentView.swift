@@ -29,7 +29,7 @@ struct ContentView: View {
                 } label: {
                     Label(demoButtonTitle, systemImage: "testtube.2")
                 }
-                if session.hasLoadedContent || session.message != nil {
+                if session.hasLoadedContent || session.message?.kind == .error {
                     Button {
                         clearCurrentContent()
                     } label: {
@@ -76,7 +76,7 @@ struct ContentView: View {
                     Label("Load Demo Data", systemImage: "testtube.2")
                 }
                 .buttonStyle(.bordered)
-                if session.message != nil {
+                if session.message?.kind == .error {
                     Button(action: clearCurrentContent) {
                         Label("Clear", systemImage: "xmark.circle")
                     }
