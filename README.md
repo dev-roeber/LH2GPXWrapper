@@ -69,7 +69,22 @@ Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSuppo
 - Konsistente Leer-/Fehler-/Ladezustaende
 - Edge-Case-Hardening: defensive Guards, robuste Formatierung
 
-## TestFlight + App Store Readiness (Phase 20)
+## Lokaler iPhone-Betrieb (aktueller Fokus)
+
+Simulator-Status (2026-03-17):
+- `xcodebuild build` erfolgreich (generic/platform=iOS)
+- Unit-Tests bestanden (iPhone 17 Pro Max, iOS 26.3)
+- Demo-Daten, Day-Liste, Day-Detail, Karte, Import-Zustand: verifiziert
+
+Geraete-Status:
+- iPhone 15 Pro Max: noch nicht verifiziert (kein Simulator fuer iOS 26.x; auf echtem Geraet zu pruefen)
+- iPhone 12 Pro Max: noch nicht verifiziert (kein Simulator fuer iOS 26.x; auf echtem Geraet zu pruefen)
+
+Vollstaendiges Device-Runbook: `docs/LOCAL_IPHONE_RUNBOOK.md`
+
+iPad: bewusst spaeter.
+
+## TestFlight + App Store Readiness (Phase 20 – extern geparkt)
 
 Lokal verifiziert (2026-03-17):
 - `xcodebuild archive` erfolgreich (v1.0, Build 1)
@@ -80,7 +95,7 @@ Lokal abgeschlossen (2026-03-17):
 - App Icon: Map-Pin + "LH2GPX" (kein Gradient-Placeholder mehr)
 - Screenshots erstellt: `docs/appstore-screenshots/` (iPhone 17 Pro Max, iPad Pro 13")
 
-Noch ausstehend (erfordern ASC-Zugang):
+Bewusst geparkt (ASC-Zugang erforderlich):
 - App Store Connect Projekt anlegen
 - Screenshots in ASC hochladen
 - Upload / TestFlight-Beta
