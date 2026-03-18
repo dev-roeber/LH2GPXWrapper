@@ -6,7 +6,9 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @State private var session = AppSessionState()
     @State private var isImportingFile = false
+    @State private var isShowingOptions = false
     @StateObject private var liveLocation = LiveLocationFeatureModel()
+    @StateObject private var preferences = AppPreferences()
 
     var body: some View {
         Group {
@@ -36,12 +38,23 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(preferences)
         .fileImporter(
             isPresented: $isImportingFile,
             allowedContentTypes: [.json, .zip],
             allowsMultipleSelection: false,
             onCompletion: handleImportResult
         )
+        .sheet(isPresented: $isShowingOptions) {
+            NavigationStack {
+                AppOptionsView(preferences: preferences)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") { isShowingOptions = false }
+                        }
+                    }
+            }
+        }
         .task {
             // PARKED: Auto-restore temporarily disabled (Phase 19.5).
             // restoreBookmarkedFile()
@@ -59,6 +72,12 @@ struct ContentView: View {
             }
             Button(action: loadBundledDemo) {
                 Label(demoButtonTitle, systemImage: "testtube.2")
+            }
+            Divider()
+            Button {
+                isShowingOptions = true
+            } label: {
+                Label("Options", systemImage: "slider.horizontal.3")
             }
             if session.hasLoadedContent || session.message?.kind == .error {
                 Divider()

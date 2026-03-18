@@ -65,8 +65,9 @@ Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSuppo
 - Day-Detail mit strukturierten Sections und Cards
 - Karten-MVP: MapKit-Ansicht im Day-Detail mit Pfad-Polylines und Visit-Markern
 - Live-Recording-Sektion im Day-Detail: manueller Toggle, aktueller Standort, Live-Polyline, gespeicherte Live-Tracks
+- Optionen-Seite ueber das Actions-Menue: lokale Distanz-Einheit, Start-Tab, Kartenstil und technische Importdetails
 - VoiceOver-Accessibility: semantische Labels und Gruppierung fuer alle Kernelemente
-- Toolbar-Aktionen mit SF-Symbol-Icons
+- Toolbar-Aktionen mit SF-Symbol-Icons, inklusive Optionen-Seite
 - Konsistente Leer-/Fehler-/Ladezustaende
 - Edge-Case-Hardening: defensive Guards, robuste Formatierung
 
@@ -83,6 +84,11 @@ Neu auf Code-Stand 2026-03-18:
 - foreground-only Live-Location / Live-Recording ist eingebaut (while-in-use, lokal, manuell gestartet)
 - Live-Tracks werden getrennt von importierter History gespeichert; kein Auto-Resume nach Neustart
 - Wrapper-Unit-Tests und generischer iOS-Build sind gruen; die komplette UI-Test-Suite lief auf diesem Rechner in einen Simulator-Launcher-Fehler (`Mach error -308`)
+
+Neu auf Code-Stand 2026-03-19:
+- eine echte lokale Optionen-Seite ist eingebaut
+- Einstellungen wirken app-weit im Wrapper, weil die Preferences-Domain im Core-Repo zentral injiziert wird
+- bewusst keine Cloud-, Server- oder Sync-Toggles
 
 Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
 
