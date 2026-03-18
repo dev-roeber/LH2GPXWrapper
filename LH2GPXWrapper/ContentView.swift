@@ -10,12 +10,12 @@ struct ContentView: View {
     var body: some View {
         Group {
             if session.content != nil {
-                AppContentSplitView(session: $session)
-                    .toolbar {
-                        ToolbarItem(placement: .primaryAction) {
-                            actionsMenu
-                        }
-                    }
+                AppContentSplitView(
+                    session: $session,
+                    onOpen: { isImportingFile = true },
+                    onLoadDemo: loadBundledDemo,
+                    onClear: clearCurrentContent
+                )
             } else {
                 NavigationStack {
                     Group {
