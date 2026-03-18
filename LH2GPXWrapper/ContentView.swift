@@ -20,7 +20,7 @@ struct ContentView: View {
                 NavigationStack {
                     Group {
                         if session.isLoading {
-                            ProgressView("Opening app export...")
+                            ProgressView("Opening location history...")
                         } else {
                             emptyStateView
                         }
@@ -81,7 +81,7 @@ struct ContentView: View {
             VStack(spacing: 8) {
                 Text("Import your location history")
                     .font(.title2.weight(.semibold))
-                Text("Export your location history using the LocationHistory2GPX tool, then open the resulting app_export.json or .zip file here.")
+                Text("Open an app_export.json or .zip from the LocationHistory2GPX tool — or a Google Timeline location-history.json or .zip from Google Takeout.")
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -95,7 +95,7 @@ struct ContentView: View {
                 Button {
                     isImportingFile = true
                 } label: {
-                    Label("Open app_export.json / .zip", systemImage: "doc.badge.plus")
+                    Label("Open location history file", systemImage: "doc.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
                 Button(action: loadBundledDemo) {
@@ -118,7 +118,7 @@ struct ContentView: View {
     }
 
     private var openButtonTitle: String {
-        session.hasLoadedContent ? "Open Another File" : "Open app_export.json / .zip"
+        session.hasLoadedContent ? "Open Another File" : "Open location history file"
     }
 
     private var demoButtonTitle: String {
@@ -127,7 +127,6 @@ struct ContentView: View {
     }
 
     private func loadBundledDemo() {
-        ImportBookmarkStore.clear()
         session.beginLoading()
         do {
             session.show(content: try DemoDataLoader.loadDefaultContent())
@@ -170,7 +169,7 @@ struct ContentView: View {
     private func handleImportResult(_ result: Result<[URL], Error>) {
         switch result {
         case let .success(urls):
-            guard let url = urls.first else { return }
+            guard let url = urls.first, !session.isLoading else { return }
             session.beginLoading()
             loadImportedFile(at: url)
         case let .failure(error):
@@ -187,22 +186,26 @@ struct ContentView: View {
     }
 
     private func loadImportedFile(at url: URL) {
-        let accessedSecurityScope = url.startAccessingSecurityScopedResource()
-        defer {
-            if accessedSecurityScope {
-                url.stopAccessingSecurityScopedResource()
+        Task {
+            let accessedSecurityScope = url.startAccessingSecurityScopedResource()
+            defer {
+                if accessedSecurityScope {
+                    url.stopAccessingSecurityScopedResource()
+                }
             }
-        }
-        do {
-            let content = try AppContentLoader.loadImportedContent(from: url)
-            ImportBookmarkStore.save(url: url)
-            session.show(content: content)
-        } catch {
-            session.showFailure(
-                title: (error as? AppContentLoaderError)?.userFacingTitle ?? "Unable to open file",
-                message: error.localizedDescription,
-                preserveCurrentContent: session.hasLoadedContent
-            )
+            do {
+                let content = try await Task.detached(priority: .userInitiated) {
+                    try AppContentLoader.loadImportedContent(from: url)
+                }.value
+                ImportBookmarkStore.save(url: url)
+                session.show(content: content)
+            } catch {
+                session.showFailure(
+                    title: (error as? AppContentLoaderError)?.userFacingTitle ?? "Unable to open file",
+                    message: error.localizedDescription,
+                    preserveCurrentContent: session.hasLoadedContent
+                )
+            }
         }
     }
 }
