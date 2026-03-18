@@ -36,7 +36,7 @@ struct ContentView: View {
         }
         .fileImporter(
             isPresented: $isImportingFile,
-            allowedContentTypes: [.json],
+            allowedContentTypes: [.json, .zip],
             allowsMultipleSelection: false,
             onCompletion: handleImportResult
         )
@@ -81,7 +81,7 @@ struct ContentView: View {
             VStack(spacing: 8) {
                 Text("Import your location history")
                     .font(.title2.weight(.semibold))
-                Text("Open a local app_export.json file created with the LocationHistory2GPX tool to explore your location history offline.")
+                Text("Open a local app_export.json or .zip file created with the LocationHistory2GPX tool to explore your location history offline.")
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -95,7 +95,7 @@ struct ContentView: View {
                 Button {
                     isImportingFile = true
                 } label: {
-                    Label("Open app_export.json", systemImage: "doc.badge.plus")
+                    Label("Open app_export.json / .zip", systemImage: "doc.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
                 Button(action: loadBundledDemo) {
@@ -118,7 +118,7 @@ struct ContentView: View {
     }
 
     private var openButtonTitle: String {
-        session.hasLoadedContent ? "Open Another File" : "Open app_export.json"
+        session.hasLoadedContent ? "Open Another File" : "Open app_export.json / .zip"
     }
 
     private var demoButtonTitle: String {
