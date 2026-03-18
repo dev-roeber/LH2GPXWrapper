@@ -28,7 +28,7 @@ Das Xcode-Projekt referenziert das Core-Repo als lokales Swift Package:
 ```
 
 Genutzte Produkte:
-- `LocationHistoryConsumerAppSupport` – Produkt-UI (NavigationSplitView, Dashboard, Day-Detail, Map), Session, Loader, Bookmark-Persistenz
+- `LocationHistoryConsumerAppSupport` – Produkt-UI (NavigationSplitView, Dashboard, Day-Detail, Map), Session, Loader, Bookmark-Persistenz, Live-Recording-Domain
 - `LocationHistoryConsumerDemoSupport` – Demo-Fixture-Loader
 
 ## Bundle-Konfiguration
@@ -39,7 +39,7 @@ Genutzte Produkte:
 - **Deployment Target:** iOS 26.2
 - **Signing:** Automatic (Team XAGR3K7XDJ)
 - **App Icon:** Map-Pin + "LH2GPX", 1024x1024 (Interims-Design, kein Gradient-Placeholder mehr)
-- **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, keine Datenerhebung, UserDefaults-Zugriff deklariert
+- **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, keine Datenerhebung, UserDefaults-Zugriff deklariert; optionale While-In-Use-Location ueber Info.plist-Usage-String
 
 ## Lokaler Build
 
@@ -57,13 +57,14 @@ xcodebuild -project LH2GPXWrapper.xcodeproj \
   build
 ```
 
-## Produkt-UI (Phase 17–19)
+## Produkt-UI (Phase 17–20)
 
 Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSupport`):
 - NavigationSplitView mit Day-Liste und Detail-Pane
 - Overview-Dashboard mit Statistik-Grid
 - Day-Detail mit strukturierten Sections und Cards
 - Karten-MVP: MapKit-Ansicht im Day-Detail mit Pfad-Polylines und Visit-Markern
+- Live-Recording-Sektion im Day-Detail: manueller Toggle, aktueller Standort, Live-Polyline, gespeicherte Live-Tracks
 - VoiceOver-Accessibility: semantische Labels und Gruppierung fuer alle Kernelemente
 - Toolbar-Aktionen mit SF-Symbol-Icons
 - Konsistente Leer-/Fehler-/Ladezustaende
@@ -75,11 +76,15 @@ Verifiziert (2026-03-17):
 - `xcodebuild build` erfolgreich (generic/platform=iOS)
 - iPhone 15 Pro Max + iPhone 12 Pro Max: Deploy, Demo, Karte, Day-Detail, Scrollen
 - Import `app_export.json`: funktioniert
-- Import `location-history.json` (Google Takeout): wird klar abgelehnt mit verstaendlicher Fehlermeldung
 - Persistenz / Restore nach App-Neustart: verifiziert (iPhone 15 Pro Max + iPhone 12 Pro Max, 2026-03-17) – aktuell bewusst deaktiviert (Phase 19.5): App startet immer manuell
 
-Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt (erzeugt von LocationHistory2GPX Python-Tool). Der Dateiname ist dabei egal.
-Rohe Google-Takeout-Dateien werden nicht unterstuetzt und erzeugen eine erklaerende Fehlermeldung.
+Neu auf Code-Stand 2026-03-18:
+- Google-Takeout-`location-history.json` und `.zip` werden direkt unterstuetzt
+- foreground-only Live-Location / Live-Recording ist eingebaut (while-in-use, lokal, manuell gestartet)
+- Live-Tracks werden getrennt von importierter History gespeichert; kein Auto-Resume nach Neustart
+- Wrapper-Unit-Tests und generischer iOS-Build sind gruen; die komplette UI-Test-Suite lief auf diesem Rechner in einen Simulator-Launcher-Fehler (`Mach error -308`)
+
+Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
 
 Vollstaendiges Device-Runbook: `docs/LOCAL_IPHONE_RUNBOOK.md`
 
@@ -108,6 +113,7 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 - kein finales App-Icon-Design (Interims-Icon vorhanden, finales Branding-Design steht aus)
 - keine Lokalisierung
 - keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
+- kein Background-Location-Flow, kein Resume laufender Live-Tracks, kein Export aufgezeichneter Live-Tracks
 
 ## Roadmap
 

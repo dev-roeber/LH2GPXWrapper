@@ -1,6 +1,6 @@
 # Lokaler iPhone-Betrieb – Runbook
 
-Stand: 2026-03-17
+Stand: 2026-03-18
 
 ---
 
@@ -74,12 +74,12 @@ xcodebuild test \
 | Flow | Status | Geraet |
 |------|--------|--------|
 | Build (`xcodebuild build`) | verifiziert | generic/platform=iOS |
-| Unit-Tests | verifiziert (2 Tests bestanden) | iPhone 17 Pro Max, iOS 26.3 |
+| Unit-Tests | verifiziert (8 Wrapper-Tests bestanden) | iPhone 17 Pro Max, iOS 26.3 |
 | Demo-Daten | verifiziert (Screenshots 02-04) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Import-State | verifiziert (Screenshot 01) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Liste | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Detail + Karte | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
-| Persistenz / Restore | verifiziert (2026-03-17) | iPhone 15 Pro Max, iPhone 12 Pro Max |
+| Persistenz / Restore | Auto-Restore bewusst deaktiviert (Phase 19.5) | n/a |
 
 ---
 
@@ -121,30 +121,29 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 
 | Geraet | iOS-Version | Deploy | Demo | Import (app_export.json) | Import (location-history.json) | Persistenz | Karte |
 |--------|-------------|--------|------|--------------------------|-------------------------------|-----------|-------|
-| iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | klare Fehlermeldung ✅ | offen | ✅ |
-| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | ✅ | ✅ |
-| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | klare Fehlermeldung ✅ | ✅ | ✅ |
+| iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | Codepfad unterstuetzt, frische End-to-End-Verifikation offen | Auto-Restore off | ✅ |
+| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Auto-Restore off | ✅ |
+| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Auto-Restore off | ✅ |
 
-**Realer iPhone-Befund (2026-03-17):**
-- App laeuft auf iPhone 15 Pro Max und iPhone 12 Pro Max
-- Demo-Daten, Kartenansicht, Day-Detail, Scrollen funktionieren
-- Import von `03_03_2026_location-history.json` schlug fehl → Ursache: Google-Takeout-Format (Array-Root), nicht app_export.json
-- Nach Fix: Klare Fehlermeldung statt generischem Decode-Fehler
+**Aktueller Befund (2026-03-18):**
+- App laeuft weiterhin auf iPhone 15 Pro Max und iPhone 12 Pro Max fuer die bereits verifizierten Import-/Kartenflows
+- Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
+- Auto-Restore importierter Dateien bleibt bewusst deaktiviert
+- foreground-only Live-Location / Live-Recording ist implementiert; ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen neuen Flow steht noch aus
 
 **Unterstuetztes Import-Format:**
 - ✅ `app_export.json` – erzeugt von [LocationHistory2GPX](https://github.com/dev-roeber/LocationHistory2GPX) Python-Tool
-- ❌ `location-history.json` – roher Google Takeout Export (Array-Root, camelCase): wird klar abgelehnt
+- ✅ `location-history.json` / `.zip` – Google Takeout Timeline Export, wird direkt konvertiert
 
-**Vollstaendig verifiziert (2026-03-17):**
-
-Alle Flows sind auf echtem Geraet verifiziert:
+**Aktuell dokumentierter Verifikationsstand:**
 - [x] Build + Install per Xcode
 - [x] App starten → Import-Zustand sichtbar
 - [x] Demo-Daten laden → Day-Liste sichtbar
 - [x] Ersten Eintrag tippen → Day-Detail + Karte
-- [x] location-history.json (Google-Format) importieren → klare Fehlermeldung erscheint
+- [ ] location-history.json / .zip auf aktuellem Stand separat erneut auf echtem Geraet pruefen
 - [x] Import-State anzeigen → leerer Zustand sauber
-- [x] App schliessen, neu starten → zuletzt importierte Datei wiederhergestellt (Persistenz/Restore verifiziert 2026-03-17)
+- [x] App schliessen, neu starten → manueller Einstieg bleibt erhalten (Auto-Restore bewusst aus)
+- [ ] Live-Location-Permission, aktueller Standort und Live-Track-Aufnahme separat auf echtem Geraet oder Simulator protokollieren
 
 Befunde in dieses Runbook als Tabelle nachtragen.
 
