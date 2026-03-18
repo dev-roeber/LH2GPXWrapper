@@ -152,6 +152,8 @@ Befunde in dieses Runbook als Tabelle nachtragen.
 
 ## Persistenz / Restore – Testplan (manuell auf Geraet)
 
+> **Phase 19.5 (2026-03-18):** Auto-Restore ist aktuell bewusst deaktiviert. App startet immer manuell (Open / Demo). Persistenz-Code ist vollstaendig erhalten und kann reaktiviert werden. Der Testplan unten gilt fuer den reaktivierten Zustand.
+
 ### Code-Review-Status (2026-03-17)
 
 Die Restore-Logik wurde vollstaendig code-reviewed. Kein Bug gefunden.
