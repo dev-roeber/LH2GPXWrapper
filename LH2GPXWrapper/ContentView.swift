@@ -11,29 +11,25 @@ struct ContentView: View {
         Group {
             if session.content != nil {
                 AppContentSplitView(session: $session)
-            } else if session.isLoading {
-                ProgressView("Opening app export...")
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            actionsMenu
+                        }
+                    }
             } else {
-                emptyStateView
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
-                Button {
-                    isImportingFile = true
-                } label: {
-                    Label(openButtonTitle, systemImage: "doc.badge.plus")
-                }
-                Button {
-                    loadBundledDemo()
-                } label: {
-                    Label(demoButtonTitle, systemImage: "testtube.2")
-                }
-                if session.hasLoadedContent || session.message?.kind == .error {
-                    Button {
-                        clearCurrentContent()
-                    } label: {
-                        Label("Clear", systemImage: "xmark.circle")
+                NavigationStack {
+                    Group {
+                        if session.isLoading {
+                            ProgressView("Opening app export...")
+                        } else {
+                            emptyStateView
+                        }
+                    }
+                    .navigationTitle("LH2GPX")
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            actionsMenu
+                        }
                     }
                 }
             }
@@ -51,21 +47,51 @@ struct ContentView: View {
         }
     }
 
+    @ViewBuilder
+    private var actionsMenu: some View {
+        Menu {
+            Button {
+                isImportingFile = true
+            } label: {
+                Label(openButtonTitle, systemImage: "doc.badge.plus")
+            }
+            Button(action: loadBundledDemo) {
+                Label(demoButtonTitle, systemImage: "testtube.2")
+            }
+            if session.hasLoadedContent || session.message?.kind == .error {
+                Divider()
+                Button(role: .destructive, action: clearCurrentContent) {
+                    Label("Clear", systemImage: "xmark.circle")
+                }
+            }
+        } label: {
+            Label("Actions", systemImage: "ellipsis.circle")
+        }
+    }
+
     private var emptyStateView: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: 20) {
+            Spacer()
+
+            Image(systemName: "map.fill")
+                .font(.system(size: 56))
+                .foregroundColor(.accentColor)
+                .accessibilityHidden(true)
+
+            VStack(spacing: 8) {
                 Text("Import your location history")
                     .font(.title2.weight(.semibold))
                 Text("Open a local app_export.json file created with the LocationHistory2GPX tool to explore your location history offline.")
                     .font(.body)
                     .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
             }
 
             if let message = session.message, message.kind == .error {
                 AppMessageCard(message: message)
             }
 
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(spacing: 10) {
                 Button {
                     isImportingFile = true
                 } label: {
@@ -83,9 +109,11 @@ struct ContentView: View {
                     .buttonStyle(.bordered)
                 }
             }
+
+            Spacer()
         }
-        .frame(maxWidth: 520, alignment: .leading)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: 480)
+        .frame(maxWidth: .infinity)
         .padding(24)
     }
 
