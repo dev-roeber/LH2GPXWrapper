@@ -61,8 +61,6 @@ struct ContentView: View {
                     .foregroundStyle(.secondary)
             }
 
-            AppSourceSummaryCard(summary: session.sourceSummary)
-
             if let message = session.message, message.kind == .error {
                 AppMessageCard(message: message)
             }
