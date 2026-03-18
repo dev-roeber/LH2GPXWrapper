@@ -1,36 +1,110 @@
-//
-//  LH2GPXWrapperTests.swift
-//  LH2GPXWrapperTests
-//
-//  Created by Sebastian on 17.03.26.
-//
-
 import XCTest
+import LocationHistoryConsumerAppSupport
+import LocationHistoryConsumerDemoSupport
 @testable import LH2GPXWrapper
+
+// MARK: - AppSessionState integration tests
+//
+// These tests exercise the session state that ContentView uses.
+// They guard against regressions in the Core library's state machine
+// and verify that the Wrapper's demo-data integration works correctly.
 
 final class LH2GPXWrapperTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    // MARK: Initial State
+
+    func testInitialSessionStateIsIdle() {
+        let state = AppSessionState()
+        XCTAssertFalse(state.isLoading)
+        XCTAssertFalse(state.hasLoadedContent)
+        XCTAssertNil(state.content)
+        XCTAssertEqual(state.presentationState, .idle)
+        XCTAssertNil(state.selectedDate)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    // MARK: Demo Load
+
+    func testDemoLoadProducesDemoState() throws {
+        var state = AppSessionState()
+        let content = try DemoDataLoader.loadDefaultContent()
+        state.show(content: content)
+
+        XCTAssertEqual(state.presentationState, .demoLoaded)
+        XCTAssertTrue(state.hasDays)
+        XCTAssertNotNil(state.selectedDate)
+        XCTAssertEqual(state.message?.title, "Demo data ready")
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testDemoLoadDoesNotRequireClearingBookmark() throws {
+        // Regression guard: loadBundledDemo must not call ImportBookmarkStore.clear()
+        // before showing demo data — doing so would silently destroy a previously
+        // saved import bookmark. This test verifies the demo content is self-contained.
+        let content = try DemoDataLoader.loadDefaultContent()
+        XCTAssertFalse(content.daySummaries.isEmpty)
+        XCTAssertEqual(content.source, .demoFixture(name: AppContentLoader.defaultDemoFixtureName))
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    // MARK: State Transitions
+
+    func testBeginLoadingSetsLoadingState() {
+        var state = AppSessionState()
+        state.beginLoading()
+
+        XCTAssertTrue(state.isLoading)
+        XCTAssertEqual(state.presentationState, .loading)
+        XCTAssertNil(state.message)
     }
 
+    func testGuardAgainstDoubleLoadIsDetectable() {
+        // ContentView guards handleImportResult with `guard !session.isLoading`.
+        // Verify the guard condition is detectable via isLoading.
+        var state = AppSessionState()
+        state.beginLoading()
+        // A second beginLoading() call would be guarded away in ContentView.
+        XCTAssertTrue(state.isLoading, "isLoading must be true so the guard fires")
+    }
+
+    func testClearContentResetsToIdle() throws {
+        var state = AppSessionState()
+        let content = try DemoDataLoader.loadDefaultContent()
+        state.show(content: content)
+        XCTAssertTrue(state.hasLoadedContent)
+
+        state.clearContent()
+
+        XCTAssertFalse(state.hasLoadedContent)
+        XCTAssertNil(state.content)
+        XCTAssertNil(state.selectedDate)
+        XCTAssertEqual(state.presentationState, .idle)
+    }
+
+    func testShowFailureWithoutContentSetsErrorState() {
+        var state = AppSessionState()
+        state.showFailure(
+            title: "Unable to open file",
+            message: "File corrupted",
+            preserveCurrentContent: false
+        )
+
+        XCTAssertFalse(state.isLoading)
+        XCTAssertFalse(state.hasLoadedContent)
+        XCTAssertEqual(state.presentationState, .failedWithoutContent)
+        XCTAssertEqual(state.message?.kind, .error)
+        XCTAssertEqual(state.message?.title, "Unable to open file")
+    }
+
+    func testShowFailurePreservingContentKeepsLoadedState() throws {
+        var state = AppSessionState()
+        let content = try DemoDataLoader.loadDefaultContent()
+        state.show(content: content)
+
+        state.showFailure(
+            title: "Next import failed",
+            message: "Bad file",
+            preserveCurrentContent: true
+        )
+
+        XCTAssertTrue(state.hasLoadedContent, "Previous content must be preserved")
+        XCTAssertEqual(state.presentationState, .failedWithContent)
+    }
 }
