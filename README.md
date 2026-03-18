@@ -78,7 +78,7 @@ Verifiziert (2026-03-17):
 - Import `location-history.json` (Google Takeout): wird klar abgelehnt mit verstaendlicher Fehlermeldung
 - Persistenz / Restore nach App-Neustart: verifiziert (iPhone 15 Pro Max + iPhone 12 Pro Max, 2026-03-17) – aktuell bewusst deaktiviert (Phase 19.5): App startet immer manuell
 
-Unterstuetztes Import-Format: nur `app_export.json` (erzeugt von LocationHistory2GPX Python-Tool).
+Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt (erzeugt von LocationHistory2GPX Python-Tool). Der Dateiname ist dabei egal.
 Rohe Google-Takeout-Dateien werden nicht unterstuetzt und erzeugen eine erklaerende Fehlermeldung.
 
 Vollstaendiges Device-Runbook: `docs/LOCAL_IPHONE_RUNBOOK.md`
