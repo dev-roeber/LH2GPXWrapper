@@ -111,7 +111,6 @@
 				9E7516E52F69096F00E212A7 /* Sources */,
 				9E7516E62F69096F00E212A7 /* Frameworks */,
 				9E7516E72F69096F00E212A7 /* Resources */,
-				AA0000012F69096F00E212A7 /* Patch UIBackgroundModes */,
 			);
 			buildRules = (
 			);
@@ -251,26 +250,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		AA0000012F69096F00E212A7 /* Patch UIBackgroundModes */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Patch UIBackgroundModes";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# no-op\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9E7516E52F69096F00E212A7 /* Sources */ = {
