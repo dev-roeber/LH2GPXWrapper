@@ -175,9 +175,7 @@ struct ContentView: View {
         Task {
             let accessedSecurityScope = url.startAccessingSecurityScopedResource()
             do {
-                let content = try await Task.detached(priority: .userInitiated) {
-                    try AppContentLoader.loadImportedContent(from: url)
-                }.value
+                let content = try await AppContentLoader.loadImportedContent(from: url)
                 if accessedSecurityScope { url.stopAccessingSecurityScopedResource() }
                 session.show(content: content)
             } catch {
@@ -220,9 +218,7 @@ struct ContentView: View {
                 }
             }
             do {
-                let content = try await Task.detached(priority: .userInitiated) {
-                    try AppContentLoader.loadImportedContent(from: url)
-                }.value
+                let content = try await AppContentLoader.loadImportedContent(from: url)
                 ImportBookmarkStore.save(url: url)
                 session.show(content: content)
             } catch {
