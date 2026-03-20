@@ -32,7 +32,7 @@ Geprueft gegen die relevanten Abschnitte (Stand 2026-03):
 | 4.2 Minimum Functionality | NavigationSplitView, Day-Detail, Map, Import, Demo | ✅ |
 | 5.1.1 Data Collection | keine Daten gesammelt, kein Netzwerk, kein Tracking | ✅ |
 | 5.1.2 Privacy Manifests | PrivacyInfo.xcprivacy vorhanden, UserDefaults CA92.1 | ✅ |
-| 5.1.5 Location | optionales foreground-only While-In-Use-Location, lokal im App-Kontext, kein Background-Tracking, kein ATT/Ad-Tracking | ✅ |
+| 5.1.5 Location | optionales lokales Live-Recording mit While-In-Use-Start und code-seitiger Background-Unterstuetzung nach `Always Allow`; kein ATT/Ad-Tracking | ✅ |
 
 Kein bekannter Review-Blocker.
 

@@ -39,7 +39,7 @@ Genutzte Produkte:
 - **Deployment Target:** iOS 26.2
 - **Signing:** Automatic (Team XAGR3K7XDJ)
 - **App Icon:** Map-Pin + "LH2GPX", 1024x1024 (Interims-Design, kein Gradient-Placeholder mehr)
-- **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, keine Datenerhebung, UserDefaults-Zugriff deklariert; optionale While-In-Use-Location ueber Info.plist-Usage-String
+- **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, keine Datenerhebung, UserDefaults-Zugriff deklariert; lokale Live-Location ueber Info.plist-Usage-Strings fuer While-In-Use plus optionale `Always Allow`-Erweiterung
 
 ## Lokaler Build
 
@@ -81,7 +81,7 @@ Verifiziert (2026-03-17):
 
 Neu auf Code-Stand 2026-03-18:
 - Google-Takeout-`location-history.json` und `.zip` werden direkt unterstuetzt
-- foreground-only Live-Location / Live-Recording ist eingebaut (while-in-use, lokal, manuell gestartet)
+- Live-Location / Live-Recording ist eingebaut (lokal, manuell gestartet; optionaler Background-Modus im aktuellen Code)
 - Live-Tracks werden getrennt von importierter History gespeichert; kein Auto-Resume nach Neustart
 - Wrapper-Unit-Tests und generischer iOS-Build sind gruen; die komplette UI-Test-Suite lief auf diesem Rechner in einen Simulator-Launcher-Fehler (`Mach error -308`)
 
@@ -89,6 +89,10 @@ Neu auf Code-Stand 2026-03-19:
 - eine echte lokale Optionen-Seite ist eingebaut
 - Einstellungen wirken app-weit im Wrapper, weil die Preferences-Domain im Core-Repo zentral injiziert wird
 - bewusst keine Cloud-, Server- oder Sync-Toggles
+
+Neu auf Code-Stand 2026-03-20:
+- der Wrapper deklariert jetzt auch die iOS-Voraussetzungen fuer optionales Background-Live-Recording (`Always Allow`-Usage-String + `location`-Background-Mode)
+- frische Device-Verifikation fuer den erweiterten Permission-/Background-Flow ist weiter offen
 
 Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
 
@@ -119,7 +123,7 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 - kein finales App-Icon-Design (Interims-Icon vorhanden, finales Branding-Design steht aus)
 - keine Lokalisierung
 - keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
-- kein Background-Location-Flow, kein Resume laufender Live-Tracks, kein Export aufgezeichneter Live-Tracks
+- kein Resume laufender Live-Tracks, kein Server-/Sync-Flow, keine frische Device-Verifikation fuer optionales Background-Live-Recording
 
 ## Roadmap
 

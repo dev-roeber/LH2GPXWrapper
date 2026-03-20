@@ -129,7 +129,7 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - App laeuft weiterhin auf iPhone 15 Pro Max und iPhone 12 Pro Max fuer die bereits verifizierten Import-/Kartenflows
 - Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
 - Auto-Restore importierter Dateien bleibt bewusst deaktiviert
-- foreground-only Live-Location / Live-Recording ist implementiert; ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen neuen Flow steht noch aus
+- Live-Location / Live-Recording ist implementiert; optionales Background-Recording ist im aktuellen Code vorbereitet, aber ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen erweiterten Flow steht noch aus
 
 **Unterstuetztes Import-Format:**
 - ✅ `app_export.json` – erzeugt von [LocationHistory2GPX](https://github.com/dev-roeber/LocationHistory2GPX) Python-Tool
@@ -143,7 +143,7 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - [ ] location-history.json / .zip auf aktuellem Stand separat erneut auf echtem Geraet pruefen
 - [x] Import-State anzeigen → leerer Zustand sauber
 - [x] App schliessen, neu starten → manueller Einstieg bleibt erhalten (Auto-Restore bewusst aus)
-- [ ] Live-Location-Permission, aktueller Standort und Live-Track-Aufnahme separat auf echtem Geraet oder Simulator protokollieren
+- [ ] Live-Location-Permission, aktueller Standort, Live-Track-Aufnahme und optionale `Always Allow`-Erweiterung fuer Background-Recording separat auf echtem Geraet oder Simulator protokollieren
 
 Befunde in dieses Runbook als Tabelle nachtragen.
 

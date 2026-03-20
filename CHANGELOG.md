@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2026-03-20
+
+### Background Recording Wrapper Support
+- Wrapper-Build-Einstellungen enthalten jetzt zusaetzlich `NSLocationAlwaysAndWhenInUseUsageDescription`
+- `UIBackgroundModes` aktiviert `location`, damit die optionale Background-Live-Recording-Unterstuetzung aus dem Core-Repo auf iOS sauber deklariert ist
+- Device-Verifikation fuer den erweiterten Permission-Flow bleibt separat offen
+
 ## 2026-03-19
 
 ### Local Options Wrapper Integration
