@@ -92,6 +92,9 @@ Neu auf Code-Stand 2026-03-19:
 
 Neu auf Code-Stand 2026-03-20:
 - der Wrapper deklariert jetzt auch die iOS-Voraussetzungen fuer optionales Background-Live-Recording (`Always Allow`-Usage-String + `location`-Background-Mode)
+- der ueber das Core-Repo gelieferte Export-Flow kann jetzt `GPX`, `KML` und `GeoJSON`
+- Export unterstuetzt jetzt die Modi `Tracks`, `Waypoints` und `Both`
+- lokale Exportfilter decken jetzt auch Bounding Box und Polygon fuer importierte History ab
 - frische Device-Verifikation fuer den erweiterten Permission-/Background-Flow ist weiter offen
 
 Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
@@ -123,6 +126,7 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 - kein finales App-Icon-Design (Interims-Icon vorhanden, finales Branding-Design steht aus)
 - keine Lokalisierung
 - keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
+- kein CSV-/KMZ-Export, kein Server-/Sync-Flow
 - kein Resume laufender Live-Tracks, kein Server-/Sync-Flow, keine frische Device-Verifikation fuer optionales Background-Live-Recording
 
 ## Roadmap

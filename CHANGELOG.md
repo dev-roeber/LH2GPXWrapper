@@ -2,6 +2,11 @@
 
 ## 2026-03-20
 
+### Core Export Capabilities Surfaced In Wrapper
+- die ueber das Core-Package eingebundene Export-UI schaltet jetzt `GeoJSON` als drittes aktives Exportformat frei
+- Export bietet jetzt `Tracks`, `Waypoints` und `Both` als Moduswahl
+- lokale Exportfilter im Wrapper decken jetzt auch Bounding Box und Polygon fuer importierte History ab
+
 ### Background Recording Wrapper Support
 - Wrapper-Build-Einstellungen enthalten jetzt zusaetzlich `NSLocationAlwaysAndWhenInUseUsageDescription`
 - `UIBackgroundModes` aktiviert `location`, damit die optionale Background-Live-Recording-Unterstuetzung aus dem Core-Repo auf iOS sauber deklariert ist
