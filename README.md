@@ -127,4 +127,8 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 
 ## Roadmap
 
-Die vollstaendige Delivery-Roadmap liegt im Core-Repo unter `ROADMAP.md`.
+Die vollstaendige Delivery-Roadmap liegt jetzt identisch in beiden Repos:
+- [ROADMAP.md](/home/sebastian/repos/LH2GPXWrapper/ROADMAP.md)
+- [NEXT_STEPS.md](/home/sebastian/repos/LH2GPXWrapper/NEXT_STEPS.md)
+
+Diese Dateien muessen zwischen Core-Repo und Wrapper-Repo inhaltlich synchron gehalten werden.
