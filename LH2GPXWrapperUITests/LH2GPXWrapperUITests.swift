@@ -17,7 +17,7 @@ final class LH2GPXWrapperUITests: XCTestCase {
     func testAppStoreScreenshots() throws {
         // Adjust per simulator run: "iphone" or "ipad"
         let deviceFolder = "iphone"
-        let outputDir = "/tmp/lh2gpx_screenshots/\(deviceFolder)"
+        let outputDir = FileManager.default.temporaryDirectory.appendingPathComponent("lh2gpx_screenshots/\(deviceFolder)").path
         try FileManager.default.createDirectory(
             atPath: outputDir, withIntermediateDirectories: true
         )
