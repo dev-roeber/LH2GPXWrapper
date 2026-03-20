@@ -61,9 +61,7 @@ struct ContentView: View {
             }
         }
         .task {
-            // PARKED: Auto-restore temporarily disabled (Phase 19.5).
-            // restoreBookmarkedFile()
-            // App always starts at the manual import/demo entry point.
+            restoreBookmarkedFile()
         }
     }
 
@@ -174,21 +172,23 @@ struct ContentView: View {
         guard !session.hasLoadedContent, !session.isLoading else { return }
         guard let url = ImportBookmarkStore.restore() else { return }
         session.beginLoading()
-        let accessedSecurityScope = url.startAccessingSecurityScopedResource()
-        defer {
-            if accessedSecurityScope {
-                url.stopAccessingSecurityScopedResource()
+        Task {
+            let accessedSecurityScope = url.startAccessingSecurityScopedResource()
+            do {
+                let content = try await Task.detached(priority: .userInitiated) {
+                    try AppContentLoader.loadImportedContent(from: url)
+                }.value
+                if accessedSecurityScope { url.stopAccessingSecurityScopedResource() }
+                session.show(content: content)
+            } catch {
+                if accessedSecurityScope { url.stopAccessingSecurityScopedResource() }
+                ImportBookmarkStore.clear()
+                session.showFailure(
+                    title: "Unable to restore previous import",
+                    message: error.localizedDescription,
+                    preserveCurrentContent: false
+                )
             }
-        }
-        do {
-            session.show(content: try AppContentLoader.loadImportedContent(from: url))
-        } catch {
-            ImportBookmarkStore.clear()
-            session.showFailure(
-                title: "Unable to restore previous import",
-                message: error.localizedDescription,
-                preserveCurrentContent: false
-            )
         }
     }
 
