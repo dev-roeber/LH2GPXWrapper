@@ -130,6 +130,8 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
 - Auto-Restore importierter Dateien bleibt bewusst deaktiviert
 - Live-Location / Live-Recording ist implementiert; optionales Background-Recording ist im aktuellen Code vorbereitet, aber ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen erweiterten Flow steht noch aus
+- die Optionen-Seite bietet jetzt auch Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
+- eine frische End-to-End-Geraeteverifikation fuer den konfigurierbaren Server-Upload steht noch aus
 
 **Unterstuetztes Import-Format:**
 - ✅ `app_export.json` – erzeugt von [LocationHistory2GPX](https://github.com/dev-roeber/LocationHistory2GPX) Python-Tool
@@ -144,6 +146,7 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - [x] Import-State anzeigen → leerer Zustand sauber
 - [x] App schliessen, neu starten → manueller Einstieg bleibt erhalten (Auto-Restore bewusst aus)
 - [ ] Live-Location-Permission, aktueller Standort, Live-Track-Aufnahme und optionale `Always Allow`-Erweiterung fuer Background-Recording separat auf echtem Geraet oder Simulator protokollieren
+- [ ] optionalen Server-Upload mit echtem Endpunkt auf aktuellem Geraet separat pruefen
 
 Befunde in dieses Runbook als Tabelle nachtragen.
 

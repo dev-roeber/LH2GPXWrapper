@@ -65,7 +65,7 @@ Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSuppo
 - Day-Detail mit strukturierten Sections und Cards
 - Karten-MVP: MapKit-Ansicht im Day-Detail mit Pfad-Polylines und Visit-Markern
 - Live-Recording-Sektion im Day-Detail: manueller Toggle, aktueller Standort, Live-Polyline, gespeicherte Live-Tracks
-- Optionen-Seite ueber das Actions-Menue: lokale Distanz-Einheit, Start-Tab, Kartenstil und technische Importdetails
+- Optionen-Seite ueber das Actions-Menue: lokale Distanz-Einheit, Start-Tab, Kartenstil, Sprache, technische Importdetails und optionaler Server-Upload
 - VoiceOver-Accessibility: semantische Labels und Gruppierung fuer alle Kernelemente
 - Toolbar-Aktionen mit SF-Symbol-Icons, inklusive Optionen-Seite
 - Konsistente Leer-/Fehler-/Ladezustaende
@@ -95,6 +95,8 @@ Neu auf Code-Stand 2026-03-20:
 - der ueber das Core-Repo gelieferte Export-Flow kann jetzt `GPX`, `KML` und `GeoJSON`
 - Export unterstuetzt jetzt die Modi `Tracks`, `Waypoints` und `Both`
 - lokale Exportfilter decken jetzt auch Bounding Box und Polygon fuer importierte History ab
+- Optionen bieten jetzt Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
+- der Standard-Testendpunkt fuer den Server-Upload ist mit `http://178.104.51.78:8080/live-location` vorbelegt
 - frische Device-Verifikation fuer den erweiterten Permission-/Background-Flow ist weiter offen
 
 Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
@@ -124,10 +126,10 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 ## Was bewusst noch nicht vorbereitet ist
 
 - kein finales App-Icon-Design (Interims-Icon vorhanden, finales Branding-Design steht aus)
-- keine Lokalisierung
+- keine vollstaendige Lokalisierung; derzeit partielle Deutsch/Englisch-Abdeckung aus dem Core-Repo
 - keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
-- kein CSV-/KMZ-Export, kein Server-/Sync-Flow
-- kein Resume laufender Live-Tracks, kein Server-/Sync-Flow, keine frische Device-Verifikation fuer optionales Background-Live-Recording
+- kein CSV-/KMZ-Export
+- kein Resume laufender Live-Tracks, kein Cloud-/Sync-Flow fuer importierte History, keine frische Device-Verifikation fuer optionales Background-Live-Recording
 
 ## Roadmap
 

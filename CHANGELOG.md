@@ -7,6 +7,12 @@
 - Export bietet jetzt `Tracks`, `Waypoints` und `Both` als Moduswahl
 - lokale Exportfilter im Wrapper decken jetzt auch Bounding Box und Polygon fuer importierte History ab
 
+### Core Language / Upload Capabilities Surfaced In Wrapper
+- die ueber das Core-Package eingebundene Optionen-Seite bietet jetzt Deutsch/Englisch als Sprachwahl
+- der Wrapper uebernimmt jetzt die partielle deutsche Shell-/Optionen-/Live-Recording-Abdeckung aus dem Core-Repo
+- akzeptierte Live-Recording-Punkte koennen jetzt optional an einen frei konfigurierbaren HTTP(S)-Endpunkt mit optionalem Bearer-Token gesendet werden
+- der Standard-Testendpunkt ist mit der IP dieses Servers vorbefuellt: `http://178.104.51.78:8080/live-location`
+
 ### Background Recording Wrapper Support
 - Wrapper-Build-Einstellungen enthalten jetzt zusaetzlich `NSLocationAlwaysAndWhenInUseUsageDescription`
 - `UIBackgroundModes` aktiviert `location`, damit die optionale Background-Live-Recording-Unterstuetzung aus dem Core-Repo auf iOS sauber deklariert ist

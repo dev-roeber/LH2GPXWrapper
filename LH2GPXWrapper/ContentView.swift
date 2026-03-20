@@ -10,6 +10,10 @@ struct ContentView: View {
     @StateObject private var liveLocation = LiveLocationFeatureModel()
     @StateObject private var preferences = AppPreferences()
 
+    private func t(_ english: String) -> String {
+        preferences.localized(english)
+    }
+
     var body: some View {
         Group {
             if session.content != nil {
@@ -24,7 +28,7 @@ struct ContentView: View {
                 NavigationStack {
                     Group {
                         if session.isLoading {
-                            ProgressView("Opening location history...")
+                            ProgressView(t("Opening location history..."))
                         } else {
                             emptyStateView
                         }
@@ -39,6 +43,7 @@ struct ContentView: View {
             }
         }
         .environmentObject(preferences)
+        .environment(\.locale, preferences.appLocale)
         .fileImporter(
             isPresented: $isImportingFile,
             allowedContentTypes: [.json, .zip],
@@ -50,7 +55,7 @@ struct ContentView: View {
                 AppOptionsView(preferences: preferences)
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
-                            Button("Done") { isShowingOptions = false }
+                            Button(t("Done")) { isShowingOptions = false }
                         }
                     }
             }
@@ -68,25 +73,25 @@ struct ContentView: View {
             Button {
                 isImportingFile = true
             } label: {
-                Label(openButtonTitle, systemImage: "doc.badge.plus")
+                Label(t(openButtonTitle), systemImage: "doc.badge.plus")
             }
             Button(action: loadBundledDemo) {
-                Label(demoButtonTitle, systemImage: "testtube.2")
+                Label(t(demoButtonTitle), systemImage: "testtube.2")
             }
             Divider()
             Button {
                 isShowingOptions = true
             } label: {
-                Label("Options", systemImage: "slider.horizontal.3")
+                Label(t("Options"), systemImage: "slider.horizontal.3")
             }
             if session.hasLoadedContent || session.message?.kind == .error {
                 Divider()
                 Button(role: .destructive, action: clearCurrentContent) {
-                    Label("Clear", systemImage: "xmark.circle")
+                    Label(t("Clear"), systemImage: "xmark.circle")
                 }
             }
         } label: {
-            Label("Actions", systemImage: "ellipsis.circle")
+            Label(t("Actions"), systemImage: "ellipsis.circle")
         }
     }
 
@@ -100,9 +105,9 @@ struct ContentView: View {
                 .accessibilityHidden(true)
 
             VStack(spacing: 8) {
-                Text("Import your location history")
+                Text(t("Import your location history"))
                     .font(.title2.weight(.semibold))
-                Text("Open an app_export.json or .zip from the LocationHistory2GPX tool — or a Google Timeline location-history.json or .zip from Google Takeout.")
+                Text(t("Open an app_export.json or .zip from the LocationHistory2GPX tool — or a Google Timeline location-history.json or .zip from Google Takeout."))
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -116,16 +121,16 @@ struct ContentView: View {
                 Button {
                     isImportingFile = true
                 } label: {
-                    Label("Open location history file", systemImage: "doc.badge.plus")
+                    Label(t("Open location history file"), systemImage: "doc.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
                 Button(action: loadBundledDemo) {
-                    Label("Load Demo Data", systemImage: "testtube.2")
+                    Label(t("Load Demo Data"), systemImage: "testtube.2")
                 }
                 .buttonStyle(.bordered)
                 if session.message?.kind == .error {
                     Button(action: clearCurrentContent) {
-                        Label("Clear", systemImage: "xmark.circle")
+                        Label(t("Clear"), systemImage: "xmark.circle")
                     }
                     .buttonStyle(.bordered)
                 }
