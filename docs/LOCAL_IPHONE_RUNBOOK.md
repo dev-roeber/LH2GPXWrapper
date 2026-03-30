@@ -69,12 +69,12 @@ xcodebuild test \
 
 ---
 
-## Simulator-Verifikationsstatus (2026-03-17)
+## Simulator-Verifikationsstatus (2026-03-30)
 
 | Flow | Status | Geraet |
 |------|--------|--------|
 | Build (`xcodebuild build`) | verifiziert | generic/platform=iOS |
-| Unit-Tests | verifiziert (8 Wrapper-Tests bestanden) | iPhone 17 Pro Max, iOS 26.3 |
+| Unit-Tests | verifiziert (`xcodebuild test -only-testing:LH2GPXWrapperTests` gruen) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Demo-Daten | verifiziert (Screenshots 02-04) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Import-State | verifiziert (Screenshot 01) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Liste | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
@@ -126,6 +126,7 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 | iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
 
 **Aktueller Befund (2026-03-30):**
+- fuer diesen Batch liegt zusaetzlich ein positiver manueller Xcode-Start auf dem verbundenen iPhone vor; dieser Befund ist bewusst getrennt von den CLI-Build-/Test-Ergebnissen zu lesen
 - App laeuft weiterhin auf iPhone 15 Pro Max und iPhone 12 Pro Max fuer die bereits verifizierten Import-/Kartenflows
 - Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
 - der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf; fuer diese Reaktivierung liegt in diesem Batch kein frischer Device-Nachweis vor

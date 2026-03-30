@@ -18,17 +18,19 @@ Fehlt noch:
 
 ## 2. Phase 19.52 – Linux-Failures klassifizieren und auf Apple/macOS gegenpruefen
 
-Status: **weitgehend geschlossen (Apple Stabilization Batch 1, 2026-03-30)**
+Status: **teilweise geschlossen (Apple Stabilization Batch 1, 2026-03-30)**
 
 Erledigt:
 - macOS-Build-Fehler behoben (Core-Compile-Fehler, Wrapper-SPM-Pfad)
-- `swift test` auf macOS: 222 Tests, 2 plattformbedingte Failures, alle 3 Problemfaelle gruen
+- `swift test` auf macOS: 222 Tests, 2 verbleibende rote Tests, alle 3 audit-relevanten Problemfaelle gruen
+- `xcodebuild test -scheme LocationHistoryConsumer-Package -destination 'platform=macOS'`: 222 Tests, dieselben 2 verbleibenden roten Tests
 - `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED
+- `xcodebuild test -scheme LH2GPXWrapper -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' -only-testing:LH2GPXWrapperTests`: TEST SUCCEEDED
 - Die 3 bekannten Problemfaelle sind als Test-Drift klassifiziert und im Core-Repo behoben
 
-Verbleibende offene Failures (macOS-plattformbedingt, kein Handlungsbedarf):
-- `AppPreferencesTests.testStoredValuesAreLoaded`: Keychain-Fallback macOS-spezifisch
-- `DayDetailPresentationTests.testTimeRangeFormattingAvoidsRawISOStrings`: Datumsformatierung plattformspezifisch
+Verbleibende offene Failures (weiterhin rot, ausserhalb dieses Batch-Scope):
+- `AppPreferencesTests.testStoredValuesAreLoaded`: Test schreibt den Bearer-Token nur in `UserDefaults`, der Apple-Code liest zuerst den Keychain-Pfad
+- `DayDetailPresentationTests.testTimeRangeFormattingAvoidsRawISOStrings`: Test erwartet `" - "`, der aktuelle Code formatiert mit `" – "`
 
 ## 3. Phase 19.53 – Background-Recording auf echtem iPhone verifizieren
 
@@ -69,7 +71,7 @@ Bereits drin:
 
 Fehlt noch:
 - End-to-End-Device-Verifikation mit echtem HTTPS-Endpunkt
-- finale Review-/Privacy-Texte fuer den optionalen Upload-Pfad
+- Apple-Review-/Privacy-Einordnung fuer den optionalen Upload-Pfad ueber die jetzt korrigierten lokalen Texte hinaus
 - Entscheidung, ob Privacy-Dokumentation ueber den aktuellen Manifest-/Runbook-Stand hinaus erweitert werden muss
 
 ## 6. Phase 19.56 – Erst danach weitere Feature-Arbeit

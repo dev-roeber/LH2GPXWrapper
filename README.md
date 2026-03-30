@@ -24,7 +24,7 @@ Xcode-Wrapper-Projekt fuer die iOS-App von LocationHistory2GPX.
 Das Xcode-Projekt referenziert das Core-Repo als lokales Swift Package:
 
 ```
-../../../Code/LocationHistory2GPX-iOS
+../LocationHistory2GPX-iOS
 ```
 
 Genutzte Produkte:
@@ -85,7 +85,7 @@ Neu auf Code-Stand 2026-03-18:
 - Google-Takeout-`location-history.json` und `.zip` werden direkt unterstuetzt
 - Live-Location / Live-Recording ist eingebaut (lokal, manuell gestartet; optionaler Background-Modus im aktuellen Code)
 - Live-Tracks werden getrennt von importierter History gespeichert; kein Auto-Resume nach Neustart
-- Wrapper-Unit-Tests und generischer iOS-Build sind gruen; die komplette UI-Test-Suite lief auf diesem Rechner in einen Simulator-Launcher-Fehler (`Mach error -308`)
+- Wrapper-Unit-Tests und generischer iOS-Build sind gruen; Stand 2026-03-30 laeuft auch `xcodebuild test -only-testing:LH2GPXWrapperTests` auf dem iPhone-17-Pro-Max-Simulator erfolgreich durch
 
 Neu auf Code-Stand 2026-03-19:
 - eine echte lokale Optionen-Seite ist eingebaut
@@ -119,6 +119,7 @@ Lokal verifiziert (2026-03-17):
 Offen (Stand 2026-03-30):
 - Privacy-Manifest-Scope fuer optionalen Server-Upload (Standortdaten) ungeklaert
 - App Review Guidelines 5.1.1 (Data Collection) und 5.1.2 (Privacy Manifests): teilweise – kein abschliessender Nachweis der Konformitaet fuer den Upload-Pfad
+- ein manueller Xcode-Start auf dem verbundenen iPhone bleibt ein positiver Teilbefund, ist aber bewusst getrennt von den CLI-Build-/Test-Ergebnissen zu lesen
 
 Lokal abgeschlossen (2026-03-17):
 - App Icon: Map-Pin + "LH2GPX" (kein Gradient-Placeholder mehr)
