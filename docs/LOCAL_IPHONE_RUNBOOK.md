@@ -134,6 +134,21 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - die Optionen-Seite bietet jetzt auch Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
 - eine frische End-to-End-Geraeteverifikation fuer den konfigurierbaren Server-Upload steht noch aus
 
+**Apple Device Verification Batch 1 (2026-03-30, echtes iPhone):**
+- Geraet: `iPhone 15 Pro Max` (`iPhone16,2`), iOS `26.3 (23D127)`, per USB verbunden, entsperrt, Developer Mode aktiv
+- `xcodebuild test -allowProvisioningUpdates -project /Users/sebastian/Code/LH2GPXWrapper/LH2GPXWrapper.xcodeproj -scheme LH2GPXWrapper -destination 'id=00008130-00163D0A0461401C' -only-testing:LH2GPXWrapperUITests` lief real gegen dieses Geraet
+- `LH2GPXWrapperUITestsLaunchTests.testLaunch` lief auf dem echten iPhone erfolgreich durch
+- `LH2GPXWrapperUITests.testAppStoreScreenshots` scheiterte inhaltlich: statt leerem Import-State war bereits ein wiederhergestellter Import aktiv, daher fehlte der erwartete `Demo Data`-Button
+- der zugehoerige Accessibility-Snapshot zeigte:
+  - Uebersicht mit `Imported file: location-history.zip`
+  - sichtbare `Heatmap`-Aktion bei geladenem Import
+  - sichtbaren dedizierten `Live`-Tab in der Tab-Bar
+- daraus folgt:
+  - Launch auf echter Hardware: **verifiziert**
+  - Wrapper-Auto-Restore: **teilweise verifiziert** (positiver spontaner Restore-Befund)
+  - `Heatmap` und `Live`: **teilweise verifiziert** (sichtbar/verdrahtet, aber nicht funktional durchbedient)
+  - Background-Recording und Upload: **offen**
+
 **Unterstuetztes Import-Format:**
 - ✅ `app_export.json` – erzeugt von [LocationHistory2GPX](https://github.com/dev-roeber/LocationHistory2GPX) Python-Tool
 - ✅ `location-history.json` / `.zip` – Google Takeout Timeline Export, wird direkt konvertiert
@@ -145,7 +160,7 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - [x] Ersten Eintrag tippen → Day-Detail + Karte
 - [ ] location-history.json / .zip auf aktuellem Stand separat erneut auf echtem Geraet pruefen
 - [x] Import-State anzeigen → leerer Zustand sauber
-- [ ] App schliessen, neu starten → Wrapper-Auto-Restore nach der 2026-03-20-Reaktivierung erneut auf echtem Geraet verifizieren
+- [ ] App schliessen, neu starten → Wrapper-Auto-Restore nach der 2026-03-20-Reaktivierung kontrolliert mit Positiv-, Datei-fehlt- und Clear-Pfad auf echtem Geraet verifizieren
 - [ ] Live-Location-Permission, aktueller Standort, Live-Track-Aufnahme und optionale `Always Allow`-Erweiterung fuer Background-Recording separat auf echtem Geraet oder Simulator protokollieren
 - [ ] optionalen Server-Upload mit echtem Endpunkt auf aktuellem Geraet separat pruefen
 
@@ -159,8 +174,7 @@ Befunde in dieses Runbook als Tabelle nachtragen.
 
 ### Code-Review-Status (2026-03-30)
 
-Die Restore-Logik ist im Wrapper aktiv im Code sichtbar. Kein frischer Device-Test ist in diesem Linux-Batch moeglich.
-Kein Zugriff auf physisches Geraet fuer direkten Restore-Test in dieser Session.
+Die Restore-Logik ist im Wrapper aktiv im Code sichtbar. In Apple Device Verification Batch 1 liegt jetzt ein echter positiver Teilbefund vom iPhone 15 Pro Max vor: beim Device-Launch war bereits eine wiederhergestellte `location-history.zip` aktiv. Ein kontrollierter Positiv-/Fallback-/Clear-Durchlauf steht trotzdem weiter aus.
 
 **Implementierung:** `ImportBookmarkStore` + `restoreBookmarkedFile()` in ContentView.
 - iOS-Bookmarks ohne Security-Scope (korrekt fuer iOS)
@@ -192,7 +206,7 @@ Auf **jedem Geraet** folgenden Flow pruefen und Ergebnis nachtragen:
 
 | Geraet | Positiver Restore | Datei-fehlt-Fallback | Clear-nach-Restore |
 |--------|------------------|---------------------|-------------------|
-| iPhone 15 Pro Max | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 |
+| iPhone 15 Pro Max | teilweise verifiziert – Device-Launch 2026-03-30 zeigte bereits wiederhergestellte `location-history.zip`; kontrollierter Positiv-Pfad weiter offen | offen – noch kein kontrollierter Datei-fehlt-Durchlauf auf aktuellem Stand | offen – noch kein kontrollierter Clear-nach-Restore-Durchlauf auf aktuellem Stand |
 | iPhone 12 Pro Max | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 |
 
 ---

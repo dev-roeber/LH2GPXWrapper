@@ -10,27 +10,26 @@ Status: **teilweise umgesetzt**
 Bereits drin:
 - `AppHeatmapView` ist implementiert und als eigenes Heatmap-Sheet verdrahtet
 - Heatmap ist jetzt in README, ROADMAP und Feature-Inventar repo-wahr dokumentiert
+- echter iPhone-15-Pro-Max-AX-Snapshot aus dem Wrapper zeigt `Heatmap` bei geladenem Import sichtbar im Uebersichtsbildschirm
 
 Fehlt noch:
 - dedizierte Testabdeckung fuer Heatmap-Modell/Logik
+- echtes Oeffnen des Heatmap-Sheets auf Apple-Hardware
 - visuelle Apple-Verifikation auf echter Apple-Hardware
 - Performance-Nachweis fuer groessere Imports auf Apple-Hardware
 
-## 2. Phase 19.52 – Linux-Failures klassifizieren und auf Apple/macOS gegenpruefen
+## 2. Phase 19.52 – Apple-CLI-Stand stabil halten
 
-Status: **teilweise geschlossen (Apple Stabilization Batch 1, 2026-03-30)**
+Status: **geschlossen (Apple Stabilization Batch 2, 2026-03-30)**
 
 Erledigt:
 - macOS-Build-Fehler behoben (Core-Compile-Fehler, Wrapper-SPM-Pfad)
-- `swift test` auf macOS: 222 Tests, 2 verbleibende rote Tests, alle 3 audit-relevanten Problemfaelle gruen
-- `xcodebuild test -scheme LocationHistoryConsumer-Package -destination 'platform=macOS'`: 222 Tests, dieselben 2 verbleibenden roten Tests
+- `swift test` auf macOS: 222 Tests, 0 Failures
+- `xcodebuild test -scheme LocationHistoryConsumer-Package -destination 'platform=macOS'`: 222 Tests, 0 Failures
 - `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED
 - `xcodebuild test -scheme LH2GPXWrapper -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' -only-testing:LH2GPXWrapperTests`: TEST SUCCEEDED
-- Die 3 bekannten Problemfaelle sind als Test-Drift klassifiziert und im Core-Repo behoben
-
-Verbleibende offene Failures (weiterhin rot, ausserhalb dieses Batch-Scope):
-- `AppPreferencesTests.testStoredValuesAreLoaded`: Test schreibt den Bearer-Token nur in `UserDefaults`, der Apple-Code liest zuerst den Keychain-Pfad
-- `DayDetailPresentationTests.testTimeRangeFormattingAvoidsRawISOStrings`: Test erwartet `" - "`, der aktuelle Code formatiert mit `" – "`
+- die 3 audit-relevanten Problemfaelle sind als Test-Drift klassifiziert und im Core-Repo behoben
+- die 2 zusaetzlichen Apple-Test-Widersprueche (`AppPreferencesTests...`, `DayDetailPresentationTests...`) sind in Apple Stabilization Batch 2 repo-wahr geklaert
 
 ## 3. Phase 19.53 – Background-Recording auf echtem iPhone verifizieren
 
@@ -40,6 +39,7 @@ Bereits drin:
 - Background-Recording-Codepfad
 - `Always Allow`-Upgrade im Live-Location-Modell
 - Wrapper-Deklarationen fuer `NSLocationAlwaysAndWhenInUseUsageDescription` und `UIBackgroundModes=location`
+- echter iPhone-15-Pro-Max-Lauf bestaetigt stabilen Wrapper-Launch; der eigentliche Recording-/Background-Pfad wurde dabei noch nicht bedient
 
 Fehlt noch:
 - echte Device-Verifikation fuer Permission-Upgrade, laufende Aufnahme im Hintergrund und Stop-/Persistenzverhalten
@@ -53,9 +53,10 @@ Bereits drin:
 - Core-App-Shell haelt Auto-Restore bewusst geparkt
 - Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf
 - README und Runbooks beschreiben den Status jetzt repo-wahr
+- echter iPhone-15-Pro-Max-Lauf zeigte beim App-Start bereits wiederhergestellte Quelle `Imported file: location-history.zip`
 
 Fehlt noch:
-- frische Device-Verifikation fuer den seit 2026-03-20 wieder aktiven Restore-Pfad
+- kontrollierte Device-Verifikation fuer den seit 2026-03-20 wieder aktiven Restore-Pfad
 - dokumentierter Nachweis fuer positiven Restore, Datei-fehlt-Fallback und Clear-nach-Restore
 
 ## 5. Phase 19.55 – Server-Upload / Review / Privacy finalisieren
