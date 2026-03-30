@@ -1,6 +1,6 @@
 # Lokaler iPhone-Betrieb – Runbook
 
-Stand: 2026-03-18
+Stand: 2026-03-30
 
 ---
 
@@ -79,7 +79,7 @@ xcodebuild test \
 | Import-State | verifiziert (Screenshot 01) | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Liste | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
 | Day-Detail + Karte | verifiziert | iPhone 17 Pro Max, iOS 26.3.1 |
-| Persistenz / Restore | Auto-Restore bewusst deaktiviert (Phase 19.5) | n/a |
+| Persistenz / Restore | Wrapper-Auto-Restore ist im Code aktiv; frische Simulator-Verifikation offen | n/a |
 
 ---
 
@@ -117,18 +117,18 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 
 ---
 
-## Geraete-Verifikationsstatus (Stand 2026-03-17)
+## Geraete-Verifikationsstatus (Stand 2026-03-30)
 
 | Geraet | iOS-Version | Deploy | Demo | Import (app_export.json) | Import (location-history.json) | Persistenz | Karte |
 |--------|-------------|--------|------|--------------------------|-------------------------------|-----------|-------|
-| iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | Codepfad unterstuetzt, frische End-to-End-Verifikation offen | Auto-Restore off | ✅ |
-| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Auto-Restore off | ✅ |
-| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Auto-Restore off | ✅ |
+| iPhone 17 Pro Max | 26.3 (Simulator) | ✅ (Build) | ✅ | ✅ | Codepfad unterstuetzt, frische End-to-End-Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
+| iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
+| iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
 
-**Aktueller Befund (2026-03-18):**
+**Aktueller Befund (2026-03-30):**
 - App laeuft weiterhin auf iPhone 15 Pro Max und iPhone 12 Pro Max fuer die bereits verifizierten Import-/Kartenflows
 - Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
-- Auto-Restore importierter Dateien bleibt bewusst deaktiviert
+- der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf; fuer diese Reaktivierung liegt in diesem Batch kein frischer Device-Nachweis vor
 - Live-Location / Live-Recording ist implementiert; optionales Background-Recording ist im aktuellen Code vorbereitet, aber ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen erweiterten Flow steht noch aus
 - die Optionen-Seite bietet jetzt auch Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
 - eine frische End-to-End-Geraeteverifikation fuer den konfigurierbaren Server-Upload steht noch aus
@@ -144,7 +144,7 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 - [x] Ersten Eintrag tippen → Day-Detail + Karte
 - [ ] location-history.json / .zip auf aktuellem Stand separat erneut auf echtem Geraet pruefen
 - [x] Import-State anzeigen → leerer Zustand sauber
-- [x] App schliessen, neu starten → manueller Einstieg bleibt erhalten (Auto-Restore bewusst aus)
+- [ ] App schliessen, neu starten → Wrapper-Auto-Restore nach der 2026-03-20-Reaktivierung erneut auf echtem Geraet verifizieren
 - [ ] Live-Location-Permission, aktueller Standort, Live-Track-Aufnahme und optionale `Always Allow`-Erweiterung fuer Background-Recording separat auf echtem Geraet oder Simulator protokollieren
 - [ ] optionalen Server-Upload mit echtem Endpunkt auf aktuellem Geraet separat pruefen
 
@@ -154,12 +154,12 @@ Befunde in dieses Runbook als Tabelle nachtragen.
 
 ## Persistenz / Restore – Testplan (manuell auf Geraet)
 
-> **Phase 19.5 (2026-03-18):** Auto-Restore ist aktuell bewusst deaktiviert. App startet immer manuell (Open / Demo). Persistenz-Code ist vollstaendig erhalten und kann reaktiviert werden. Der Testplan unten gilt fuer den reaktivierten Zustand.
+> **Repo-Truth 2026-03-30:** Die Core-App-Shell haelt Auto-Restore weiter geparkt. Der Wrapper hat `restoreBookmarkedFile()` am 2026-03-20 wieder aktiviert. Der Testplan unten gilt deshalb fuer den aktuellen Wrapper-Code und braucht eine frische Device-Verifikation.
 
-### Code-Review-Status (2026-03-17)
+### Code-Review-Status (2026-03-30)
 
-Die Restore-Logik wurde vollstaendig code-reviewed. Kein Bug gefunden.
-Kein Zugriff auf physisches Geraet für direkten Restore-Test.
+Die Restore-Logik ist im Wrapper aktiv im Code sichtbar. Kein frischer Device-Test ist in diesem Linux-Batch moeglich.
+Kein Zugriff auf physisches Geraet fuer direkten Restore-Test in dieser Session.
 
 **Implementierung:** `ImportBookmarkStore` + `restoreBookmarkedFile()` in ContentView.
 - iOS-Bookmarks ohne Security-Scope (korrekt fuer iOS)
@@ -191,8 +191,8 @@ Auf **jedem Geraet** folgenden Flow pruefen und Ergebnis nachtragen:
 
 | Geraet | Positiver Restore | Datei-fehlt-Fallback | Clear-nach-Restore |
 |--------|------------------|---------------------|-------------------|
-| iPhone 15 Pro Max | ✅ 2026-03-17 | ✅ 2026-03-17 | ✅ 2026-03-17 |
-| iPhone 12 Pro Max | ✅ 2026-03-17 | ✅ 2026-03-17 | ✅ 2026-03-17 |
+| iPhone 15 Pro Max | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 |
+| iPhone 12 Pro Max | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 | offen – historischer Nachweis 2026-03-17, aber vor der Reaktivierung 2026-03-20 |
 
 ---
 
