@@ -10,26 +10,30 @@ Status: **teilweise umgesetzt**
 Bereits drin:
 - `AppHeatmapView` ist implementiert und als eigenes Heatmap-Sheet verdrahtet
 - Heatmap ist jetzt in README, ROADMAP und Feature-Inventar repo-wahr dokumentiert
+- kleine dedizierte Heatmap-Regressionstests liegen im Core-Repo vor
 - echter iPhone-15-Pro-Max-AX-Snapshot aus dem Wrapper zeigt `Heatmap` bei geladenem Import sichtbar im Uebersichtsbildschirm
 
 Fehlt noch:
-- dedizierte Testabdeckung fuer Heatmap-Modell/Logik
 - echtes Oeffnen des Heatmap-Sheets auf Apple-Hardware
 - visuelle Apple-Verifikation auf echter Apple-Hardware
 - Performance-Nachweis fuer groessere Imports auf Apple-Hardware
 
 ## 2. Phase 19.52 – Apple-CLI-Stand stabil halten
 
-Status: **geschlossen (Apple Stabilization Batch 2, 2026-03-30)**
+Status: **teilweise umgesetzt**
 
 Erledigt:
 - macOS-Build-Fehler behoben (Core-Compile-Fehler, Wrapper-SPM-Pfad)
-- `swift test` auf macOS: 222 Tests, 0 Failures
-- `xcodebuild test -scheme LocationHistoryConsumer-Package -destination 'platform=macOS'`: 222 Tests, 0 Failures
+- `swift test` im Core-Repo laeuft auf diesem Linux-Server durch: 217 Tests, 2 Skips, 0 Failures
+- Apple-only Heatmap-Renderingstests sind fuer non-Apple-Plattformen korrekt gegated
 - `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED
 - `xcodebuild test -scheme LH2GPXWrapper -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' -only-testing:LH2GPXWrapperTests`: TEST SUCCEEDED
 - die 3 audit-relevanten Problemfaelle sind als Test-Drift klassifiziert und im Core-Repo behoben
 - die 2 zusaetzlichen Apple-Test-Widersprueche (`AppPreferencesTests...`, `DayDetailPresentationTests...`) sind in Apple Stabilization Batch 2 repo-wahr geklaert
+- der letzte dokumentierte Apple-CLI-/Device-Stand vom 2026-03-30 bleibt im Repo erhalten
+
+Fehlt noch:
+- frischer `xcodebuild`-Gegenlauf fuer genau diesen konsolidierten Wrapper-Stand; auf diesem Server derzeit nicht moeglich
 
 ## 3. Phase 19.53 – Background-Recording auf echtem iPhone verifizieren
 

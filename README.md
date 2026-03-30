@@ -104,6 +104,10 @@ Neu auf Code-Stand 2026-03-20:
 - frische Device-Verifikation fuer den erweiterten Permission-/Background-Flow ist weiter offen
 - frische Device-Verifikation fuer den reaktivierten Auto-Restore-Flow ist weiter offen
 
+Aktueller Server-Truth fuer den eingebundenen Core-Stand:
+- `swift test` im Core-Repo laeuft auf diesem Linux-Server gruen mit `217` Tests, `2` Skips und `0` Failures
+- der Wrapper-spezifische Xcode-/Device-Stand bleibt der zuletzt dokumentierte Apple-Lauf vom 2026-03-30; ein frischer Xcode-Rerun ist auf diesem Server nicht moeglich
+
 Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
 
 Vollstaendiges Device-Runbook: `docs/LOCAL_IPHONE_RUNBOOK.md`
