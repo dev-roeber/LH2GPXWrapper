@@ -610,9 +610,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		9E7517132F690B6700E212A7 /* XCLocalSwiftPackageReference "../../../Code/LocationHistory2GPX-iOS" */ = {
+		9E7517132F690B6700E212A7 /* XCLocalSwiftPackageReference "../LocationHistory2GPX-iOS" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../Code/LocationHistory2GPX-iOS";
+			relativePath = "../LocationHistory2GPX-iOS";
 		};
 /* End XCLocalSwiftPackageReference section */
 

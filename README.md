@@ -39,7 +39,7 @@ Genutzte Produkte:
 - **Deployment Target:** iOS 26.2
 - **Signing:** Automatic (Team XAGR3K7XDJ)
 - **App Icon:** Map-Pin + "LH2GPX", 1024x1024 (Interims-Design, kein Gradient-Placeholder mehr)
-- **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, keine Datenerhebung, UserDefaults-Zugriff deklariert; lokale Live-Location ueber Info.plist-Usage-Strings fuer While-In-Use plus optionale `Always Allow`-Erweiterung
+- **Privacy Manifest:** `PrivacyInfo.xcprivacy` – kein Tracking, UserDefaults-Zugriff deklariert; lokale Live-Location ueber Info.plist-Usage-Strings fuer While-In-Use plus optionale `Always Allow`-Erweiterung; der optionale nutzergesteuerte Server-Upload von Live-Standortpunkten ist standardmaessig deaktiviert und erfordert aktive Konfiguration
 
 ## Lokaler Build
 
@@ -114,8 +114,11 @@ iPad: bewusst spaeter.
 
 Lokal verifiziert (2026-03-17):
 - `xcodebuild archive` erfolgreich (v1.0, Build 1)
-- `PrivacyInfo.xcprivacy` konform (kein Tracking, UserDefaults CA92.1)
-- App Review Guidelines geprueft: konform
+- `PrivacyInfo.xcprivacy` UserDefaults-Zugriff (CA92.1) deklariert
+
+Offen (Stand 2026-03-30):
+- Privacy-Manifest-Scope fuer optionalen Server-Upload (Standortdaten) ungeklaert
+- App Review Guidelines 5.1.1 (Data Collection) und 5.1.2 (Privacy Manifests): teilweise – kein abschliessender Nachweis der Konformitaet fuer den Upload-Pfad
 
 Lokal abgeschlossen (2026-03-17):
 - App Icon: Map-Pin + "LH2GPX" (kein Gradient-Placeholder mehr)

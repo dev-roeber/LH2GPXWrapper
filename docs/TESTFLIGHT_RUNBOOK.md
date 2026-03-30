@@ -202,7 +202,9 @@ Alternativ: Xcode Organizer → Distribute App → App Store Connect → Upload.
   LH2GPX laedt deinen exportierten Google-Location-Verlauf (app_export.json) und
   zeigt ihn als uebersichtliche Tagesliste mit Detail-Ansicht und Karte.
   Besuche, Aktivitaeten und Pfade werden strukturiert dargestellt.
-  Alle Daten verbleiben lokal – keine Cloud, kein Tracking, keine Werbung.
+  Die App arbeitet standardmaessig lokal und offline. Der optionale Server-Upload von
+  Live-Standortpunkten ist ausschliesslich nutzergesteuert, erfordert aktive Konfiguration
+  und ist standardmaessig deaktiviert.
 - **Keywords:** location history, google takeout, karte, standortverlauf, gpx
 - **Kategorie:** Dienstprogramme (Utilities)
 - **Support-URL:** (einzutragen)

@@ -18,17 +18,17 @@ Fehlt noch:
 
 ## 2. Phase 19.52 – Linux-Failures klassifizieren und auf Apple/macOS gegenpruefen
 
-Status: **offen**
+Status: **weitgehend geschlossen (Apple Stabilization Batch 1, 2026-03-30)**
 
-Bereits drin:
-- frischer Linux-`swift test`-Lauf mit 217 ausgefuehrten Tests, 2 Skips und 14 Failures
-- erste Klassifizierung in plattformbedingt vs. unklar ist vorbereitet
+Erledigt:
+- macOS-Build-Fehler behoben (Core-Compile-Fehler, Wrapper-SPM-Pfad)
+- `swift test` auf macOS: 222 Tests, 2 plattformbedingte Failures, alle 3 Problemfaelle gruen
+- `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED
+- Die 3 bekannten Problemfaelle sind als Test-Drift klassifiziert und im Core-Repo behoben
 
-Fehlt noch:
-- macOS-/Xcode-Gegenlauf fuer denselben Repo-Stand
-- `LiveLocationFeatureModelTests.testAcceptedSamplesUploadToConfiguredServer` und `LiveLocationFeatureModelTests.testFailedUploadRetriesWhenAnotherAcceptedSampleArrives` gegen Apple/macOS abgleichen, bevor sie als rein plattformbedingt abgeschlossen werden
-- den bekannten Problemfall `LiveLocationFeatureModelTests.testBackgroundPreferenceActivatesClientWhenAlwaysAuthorized` gezielt gegenpruefen und als plattformbedingt oder echter Bug klassifizieren
-- verbleibende Linux-Failures sauber nach `plattformbedingt`, `unklar` oder `potenziell echter Bug` einordnen
+Verbleibende offene Failures (macOS-plattformbedingt, kein Handlungsbedarf):
+- `AppPreferencesTests.testStoredValuesAreLoaded`: Keychain-Fallback macOS-spezifisch
+- `DayDetailPresentationTests.testTimeRangeFormattingAvoidsRawISOStrings`: Datumsformatierung plattformspezifisch
 
 ## 3. Phase 19.53 – Background-Recording auf echtem iPhone verifizieren
 

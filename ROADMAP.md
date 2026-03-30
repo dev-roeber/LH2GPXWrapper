@@ -43,12 +43,10 @@ Historische Phasen weiter unten bleiben als Zeitstrahl stehen; wenn spaetere Com
   HTTPS-Upload, Bearer-Token, Retry-on-next-sample und Upload-Batching sind implementiert.
   Offen bleiben End-to-End-Device-Verifikation sowie finale Review-/Privacy-Einordnung auf Apple-Seite.
 - **Linux-/Apple-Teststatus**
-  Der frische Linux-`swift test`-Lauf vom 2026-03-30 endet mit 217 ausgefuehrten Tests, 2 Skips und 14 Failures.
-  Sichtbar betroffen sind dabei mindestens `LiveLocationFeatureModelTests.testAcceptedSamplesUploadToConfiguredServer`,
-  `LiveLocationFeatureModelTests.testFailedUploadRetriesWhenAnotherAcceptedSampleArrives` und
-  `LiveLocationFeatureModelTests.testBackgroundPreferenceActivatesClientWhenAlwaysAuthorized`; die ersten beiden wirken weiter plattformbedingt,
-  der letzte Fall bleibt bis zum Apple-/macOS-Gegenlauf unklar.
-  Offen bleibt der frische Gegenlauf auf Apple/macOS fuer denselben Repo-Stand.
+  Apple Stabilization Batch 1 (2026-03-30): macOS-Build-Fehler behoben (Core-Compile-Fehler, Wrapper-SPM-Pfad), `swift test` laeuft auf macOS mit 222 Tests und 2 plattformbedingten Failures.
+  Die 3 bekannten Problemfaelle sind als Test-Drift klassifiziert und behoben.
+  `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED.
+  Verbleibende 2 macOS-Failures sind plattformbedingt (Keychain/UserDefaults, Datumsformat) und kein Feature-Handlungsbedarf.
 
 ### Noch nicht umgesetzt
 
@@ -61,14 +59,27 @@ Historische Phasen weiter unten bleiben als Zeitstrahl stehen; wenn spaetere Com
 
 ### Reihenfolge der naechsten offenen Bloecke
 
-1. Heatmap-Testabdeckung und Apple-Visual-/Performance-Nachweis nachziehen
-2. Linux-Failures sauber klassifizieren und denselben Stand auf Apple/macOS gegenpruefen
+1. ~~Linux-Failures sauber klassifizieren und denselben Stand auf Apple/macOS gegenpruefen~~ – erledigt in Apple Stabilization Batch 1 (2026-03-30)
+2. Heatmap-Testabdeckung und Apple-Visual-/Performance-Nachweis nachziehen
 3. Background-Recording auf echtem iPhone verifizieren und im Runbook belegen
 4. Wrapper-Auto-Restore auf echtem iPhone erneut verifizieren und dokumentieren
-5. optionalen Server-Upload in Review-/Privacy-Texten finalisieren und auf Device end-to-end pruefen
+5. optionalen Server-Upload end-to-end auf Device pruefen; Privacy-Manifest-Scope fuer Upload klaeren
 6. erst danach weitere neue Feature-Arbeit (Insights-Ausbau, CSV/KMZ, Zeitraumsauswahl)
 
 Apple-/ASC-/TestFlight-/Release-Themen bleiben geparkt. iPad bleibt nachrangig. Phase 21 bleibt fuer spaetere Folgearbeit reserviert.
+
+### Phase 19.51 – Apple Stabilization Batch 1
+
+**Datum:** 2026-03-30
+**Ziel:** Audit-belegte P0/P1-Probleme beheben, Apple-Build-/Testlage auf belastbaren Stand bringen, Doku repo-wahr synchronisieren.
+
+- [x] Wrapper-SPM-Pfad korrigiert: `../../../Code/...` auf `../LocationHistory2GPX-iOS`
+- [x] Privacy-Text in TestFlight-Runbook sachlich korrekt formuliert (kein "alle Daten lokal")
+- [x] README Privacy-Aussage und Review-Status nuechterner formuliert
+- [x] `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED
+- [x] ROADMAP/NEXT_STEPS mit Core synchronisiert
+
+**Nicht-Ziele:** Keine neue Produktfunktion, keine neue Apple-Device-Verifikation.
 
 ### Phase 19.50 – Audit Fix + Roadmap Granularization
 
