@@ -13,7 +13,7 @@ Xcode-Wrapper-Projekt fuer die iOS-App von LocationHistory2GPX.
 
 | Aspekt | Core-Repo (`LocationHistory2GPX-iOS`) | Wrapper-Repo (`LH2GPXWrapper`) |
 |--------|----------------------------------------|-------------------------------|
-| Pfad | `~/Code/LocationHistory2GPX-iOS` | `~/Desktop/Github-ios/LH2GPXWrapper` |
+| Pfad | workspace-lokaler Checkout des Core-Repos | workspace-lokaler Checkout des Wrapper-Repos |
 | Inhalt | Swift Package: Decoder, Queries, AppSupport, DemoSupport | Xcode-Projekt: App-Target, Bundle-Config, Assets |
 | Build | `swift build` / `swift test` | `xcodebuild` / Xcode IDE |
 | Tests | Unit-Tests via SwiftPM | Xcode-Unit- und UI-Tests |
@@ -61,9 +61,11 @@ xcodebuild -project LH2GPXWrapper.xcodeproj \
 
 Die App nutzt die Produkt-UI aus dem Core-Repo (`LocationHistoryConsumerAppSupport`):
 - NavigationSplitView mit Day-Liste und Detail-Pane
+- compact iPhone-Layout mit `Overview`, `Days`, `Insights`, `Export` und auf iOS 17+ einem dedizierten `Live`-Tab
 - Overview-Dashboard mit Statistik-Grid
 - Day-Detail mit strukturierten Sections und Cards
 - Karten-MVP: MapKit-Ansicht im Day-Detail mit Pfad-Polylines und Visit-Markern
+- Heatmap als eigenes Sheet fuer importierte History auf iOS 17+/macOS 14+
 - Live-Recording-Sektion im Day-Detail: manueller Toggle, aktueller Standort, Live-Polyline, gespeicherte Live-Tracks
 - Optionen-Seite ueber das Actions-Menue: lokale Distanz-Einheit, Start-Tab, Kartenstil, Sprache, technische Importdetails und optionaler Server-Upload
 - VoiceOver-Accessibility: semantische Labels und Gruppierung fuer alle Kernelemente
@@ -77,7 +79,7 @@ Verifiziert (2026-03-17):
 - `xcodebuild build` erfolgreich (generic/platform=iOS)
 - iPhone 15 Pro Max + iPhone 12 Pro Max: Deploy, Demo, Karte, Day-Detail, Scrollen
 - Import `app_export.json`: funktioniert
-- Persistenz / Restore nach App-Neustart: verifiziert (iPhone 15 Pro Max + iPhone 12 Pro Max, 2026-03-17) – aktuell bewusst deaktiviert (Phase 19.5): App startet immer manuell
+- Persistenz / Restore nach App-Neustart: historisch auf 2026-03-17 verifiziert; der seit 2026-03-20 wieder aktive Wrapper-Auto-Restore braucht fuer den aktuellen Code-Stand eine frische Device-Re-Verifikation
 
 Neu auf Code-Stand 2026-03-18:
 - Google-Takeout-`location-history.json` und `.zip` werden direkt unterstuetzt
@@ -91,13 +93,16 @@ Neu auf Code-Stand 2026-03-19:
 - bewusst keine Cloud-, Server- oder Sync-Toggles
 
 Neu auf Code-Stand 2026-03-20:
+- `ContentView` ruft `restoreBookmarkedFile()` beim Start wieder auf; der Wrapper-Auto-Restore ist damit aktiv, waehrend die Core-App-Shell weiter manuell startet
 - der Wrapper deklariert jetzt auch die iOS-Voraussetzungen fuer optionales Background-Live-Recording (`Always Allow`-Usage-String + `location`-Background-Mode)
 - der ueber das Core-Repo gelieferte Export-Flow kann jetzt `GPX`, `KML` und `GeoJSON`
 - Export unterstuetzt jetzt die Modi `Tracks`, `Waypoints` und `Both`
 - lokale Exportfilter decken jetzt auch Bounding Box und Polygon fuer importierte History ab
+- die ueber das Core-Repo gelieferte Produkt-UI bringt jetzt auch den dedizierten `Live`-Tab sowie ein Heatmap-Sheet mit
 - Optionen bieten jetzt Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
-- der Standard-Testendpunkt fuer den Server-Upload ist mit `http://178.104.51.78:8080/live-location` vorbelegt
+- der Standard-Testendpunkt fuer den Server-Upload ist mit `https://178-104-51-78.sslip.io/live-location` vorbelegt
 - frische Device-Verifikation fuer den erweiterten Permission-/Background-Flow ist weiter offen
+- frische Device-Verifikation fuer den reaktivierten Auto-Restore-Flow ist weiter offen
 
 Unterstuetztes Import-Format: jede `.json`-Datei oder `.zip`-Datei, die einen gueltigen LH2GPX-App-Export enthaelt, plus Google-Timeline-`location-history.json` / `.zip` aus Google Takeout.
 
@@ -127,7 +132,7 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 
 - kein finales App-Icon-Design (Interims-Icon vorhanden, finales Branding-Design steht aus)
 - keine vollstaendige Lokalisierung; derzeit partielle Deutsch/Englisch-Abdeckung aus dem Core-Repo
-- keine Heatmap, kein Replay, keine Offline-Karten (ggf. spaetere Phase)
+- keine Heatmap-Produktreife- oder Performance-Verifikation, kein Replay, keine Offline-Karten
 - kein CSV-/KMZ-Export
 - kein Resume laufender Live-Tracks, kein Cloud-/Sync-Flow fuer importierte History, keine frische Device-Verifikation fuer optionales Background-Live-Recording
 

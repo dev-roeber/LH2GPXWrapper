@@ -1,6 +1,6 @@
 # TestFlight + App Store Runbook
 
-Stand: 2026-03-17 | Phase 20
+Stand: 2026-03-30 | Phase 20
 
 ---
 
@@ -17,7 +17,7 @@ Stand: 2026-03-17 | Phase 20
 | Signing | Automatic, Team `XAGR3K7XDJ` | project.pbxproj |
 | PrivacyInfo.xcprivacy | konform (kein Tracking, UserDefaults CA92.1) | PrivacyInfo.xcprivacy |
 | App Icon | Map-Pin + "LH2GPX", 1024x1024 | Assets.xcassets/AppIcon.appiconset/ |
-| App Review Guidelines | geprueft, konform | Abschnitt unten |
+| App Review Guidelines | geprueft, mit offenem Wording fuer den optionalen Server-Upload | Abschnitt unten |
 
 ---
 
@@ -30,11 +30,11 @@ Geprueft gegen die relevanten Abschnitte (Stand 2026-03):
 | 2.1 App Completeness | vollstaendiger Location-History-Viewer, Demo-Modus vorhanden | ✅ |
 | 2.3.12 Placeholder Content | App Icon: Map-Pin + App-Name (kein Gradient-Placeholder mehr) | ✅ |
 | 4.2 Minimum Functionality | NavigationSplitView, Day-Detail, Map, Import, Demo | ✅ |
-| 5.1.1 Data Collection | keine Daten gesammelt, kein Netzwerk, kein Tracking | ✅ |
-| 5.1.2 Privacy Manifests | PrivacyInfo.xcprivacy vorhanden, UserDefaults CA92.1 | ✅ |
+| 5.1.1 Data Collection | standardmaessig lokal, kein Analytics-/Ad-Tracking; optionaler nutzerkonfigurierter HTTPS-Upload fuer akzeptierte Live-Recording-Punkte ist vorhanden | teilweise |
+| 5.1.2 Privacy Manifests | PrivacyInfo.xcprivacy vorhanden, UserDefaults CA92.1; finale Review-/Privacy-Formulierung fuer den optionalen Upload-Pfad bleibt offen | teilweise |
 | 5.1.5 Location | optionales lokales Live-Recording mit While-In-Use-Start und code-seitiger Background-Unterstuetzung nach `Always Allow`; kein ATT/Ad-Tracking | ✅ |
 
-Kein bekannter Review-Blocker.
+Kein unmittelbarer Review-Blocker aus dem lokalen Code-Stand. Offen bleiben die finale Review-/Privacy-Formulierung fuer den optionalen Server-Upload und die frische Device-Verifikation des erweiterten Location-/Upload-Flows.
 
 ---
 
@@ -44,8 +44,11 @@ Kein bekannter Review-Blocker.
 
 - [x] App Icon (kein Placeholder mehr, 2026-03-17)
 - [x] `xcodebuild archive` verifiziert
-- [x] Privacy / Compliance geprueft
+- [x] Privacy / Compliance-Basis geprueft
 - [x] App Review Guidelines geprueft
+
+Noch offen innerhalb des lokalen Wording-/Review-Blocks:
+- [ ] optionalen Server-Upload in Review-/Privacy-Texten finalisieren
 
 ### Lokal – erledigt (Screenshots)
 

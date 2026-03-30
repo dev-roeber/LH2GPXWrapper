@@ -1,6 +1,16 @@
 # CHANGELOG
 
+## 2026-03-30
+
+### Audit Fix / Truth Sync
+- README, ROADMAP, NEXT_STEPS und Runbooks auf den aktuellen Wrapper-Repo-Truth fuer Auto-Restore, optionales Networking und ehrlichen Verifikationsstatus synchronisiert
+- Review-/Privacy-Wording fuer den optionalen Server-Upload nuechterner formuliert
+
 ## 2026-03-20
+
+### Import / Restore Flow
+- `ContentView` nutzt den asynchronen Datei-Ladepfad
+- `restoreBookmarkedFile()` wird beim App-Start wieder aufgerufen; der Wrapper-Auto-Restore ist damit reaktiviert
 
 ### Core Export Capabilities Surfaced In Wrapper
 - die ueber das Core-Package eingebundene Export-UI schaltet jetzt `GeoJSON` als drittes aktives Exportformat frei
@@ -11,7 +21,7 @@
 - die ueber das Core-Package eingebundene Optionen-Seite bietet jetzt Deutsch/Englisch als Sprachwahl
 - der Wrapper uebernimmt jetzt die partielle deutsche Shell-/Optionen-/Live-Recording-Abdeckung aus dem Core-Repo
 - akzeptierte Live-Recording-Punkte koennen jetzt optional an einen frei konfigurierbaren HTTP(S)-Endpunkt mit optionalem Bearer-Token gesendet werden
-- der Standard-Testendpunkt ist mit der IP dieses Servers vorbefuellt: `http://178.104.51.78:8080/live-location`
+- der Standard-Testendpunkt ist mit `https://178-104-51-78.sslip.io/live-location` vorbelegt und damit konsistent zur HTTPS-Validierung des Core-Codes
 
 ### Background Recording Wrapper Support
 - Wrapper-Build-Einstellungen enthalten jetzt zusaetzlich `NSLocationAlwaysAndWhenInUseUsageDescription`
