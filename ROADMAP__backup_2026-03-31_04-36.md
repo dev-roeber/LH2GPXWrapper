@@ -1,10 +1,10 @@
 # ROADMAP
 
-## Aktueller Stand (2026-03-31)
+## Aktueller Stand (2026-03-30)
 
 ### Repo-Truth-Zusammenfassung
-Die letzte real belegte Apple-/Device-Verifikation bleibt der 2026-03-17 auf macOS/Xcode sowie der dokumentierte Apple-CLI-/Device-Stand vom 2026-03-30.
-Der Repo-Truth-Deep-Audit vom 2026-03-31 ist in dieser Revision eingearbeitet: aktuelle Core-Testzahlen, Wrapper-Grenzen auf diesem Linux-Host und vorsichtigeres Privacy-/Review-Wording sind jetzt dokumentarisch an den aktuellen Code angeglichen.
+Die letzte real belegte Apple-/Device-Verifikation bleibt der 2026-03-17 auf macOS/Xcode sowie iPhone 15 Pro Max und iPhone 12 Pro Max.
+Der Audit-Block vom 2026-03-30 ist in dieser Revision eingearbeitet: Heatmap, `Live`-Tab, Upload-Batching, Wrapper-Auto-Restore, Default-Endpunkt und Teststatus sind jetzt dokumentarisch an den aktuellen Code angeglichen.
 Diese ROADMAP trennt ab hier explizit zwischen `fertig`, `implementiert aber noch nicht voll verifiziert` und `noch nicht umgesetzt`.
 Historische Phasen weiter unten bleiben als Zeitstrahl stehen; wenn spaetere Commits fruehere Zwischenstaende ueberholt haben, gilt der aktuelle Kopfblock als massgeblicher Repo-Truth.
 
@@ -13,15 +13,11 @@ Historische Phasen weiter unten bleiben als Zeitstrahl stehen; wenn spaetere Com
 - Import von LH2GPX-`app_export.json`/`.zip` sowie Google-Timeline-`location-history.json`/`.zip`
 - Overview, Days, Day Detail, Insights und Export als produktnahe App-Shell
 - Suche in compact und regular `Days`
-- `Days` standardmaessig absteigend (`neu -> alt`) inklusive contentful-first Initialauswahl/Fallbacks
 - Re-Select-Verhalten fuer `Days` auf iPhone: erneutes Tab-Tippen fuehrt zum aktuellen Tag
 - stabile Sheet-Praesentation fuer Optionen, Export, Heatmap und `Saved Live Tracks`
 - eigene `Saved Live Tracks`-Library plus Editor fuer gespeicherte lokale Tracks
 - aktuelle Position auf der Karte anzeigen
 - Live-Recording mit lokalen Einstellungen fuer Accuracy-Filter und Recording-Detail
-- Live-Tracking-Oberflaeche mit klarer Recording-/Upload-/Library-Hierarchie, erweiterten Stat-Karten und Quick Actions fuer Zentrieren, Pause/Resume der Uploads und manuellen Queue-Flush
-- optionaler Server-Upload mit Queue-/Failure-/Last-Success-Status, Pause/Resume und manuellem Flush
-- segmentierte Insights-Oberflaechen (`Overview`, `Patterns`, `Breakdowns`) mit KPI-Karten, Highlight-Karten, `Top Days` und Monatstrends
 - GPX-, KML- und GeoJSON-Export fuer importierte History und gespeicherte Live-Tracks
 - Exportmodi fuer `Tracks`, `Waypoints` und `Both`
 - Waypoint-Export aus importierten Visits sowie Activity-Start/-End-Koordinaten
@@ -45,20 +41,17 @@ Historische Phasen weiter unten bleiben als Zeitstrahl stehen; wenn spaetere Com
   Die Core-App-Shell haelt Auto-Restore bewusst geparkt, der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf.
   Offen bleibt eine frische Device-Verifikation fuer den reaktivierten Wrapper-Pfad.
 - **Server-Upload**
-  HTTPS-Upload, Bearer-Token, Retry-on-next-sample, Upload-Batching, Queue-/Failure-/Last-Success-Status, Pause/Resume und manueller Flush sind implementiert.
+  HTTPS-Upload, Bearer-Token, Retry-on-next-sample und Upload-Batching sind implementiert.
   Offen bleiben End-to-End-Device-Verifikation sowie finale Review-/Privacy-Einordnung auf Apple-Seite.
-- **Insights / Days UX**
-  Die Insights-Seite ist deutlich ausgebaut und `Days` ist jetzt repo-wahr `neu -> alt` sortiert.
-  Offen bleiben frische Apple-UI-Nachweise fuer die neue Informationsarchitektur, Chart-Lesbarkeit und das aktualisierte Day-Navigationsverhalten auf echter Hardware.
 - **Linux-/Apple-Teststatus**
   Der aktuelle Server-Check gegen den eingebundenen Core-Stand ist gruen:
-  `swift test` im Core-Repo laeuft auf dem Audit-Host vom `2026-03-31` mit `228` ausgefuehrten Tests, `2` Skips und `0` Failures.
+  `swift test` im Core-Repo laeuft auf Linux mit `217` ausgefuehrten Tests, `2` Skips und `0` Failures.
   Apple-only Heatmap-Renderingstests sind fuer non-Apple-Plattformen korrekt ausgeblendet und blockieren den Linux-Lauf nicht mehr.
   Der zuletzt dokumentierte Apple-CLI-Stand bleibt der 2026-03-30:
   `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED.
   `xcodebuild test -scheme LH2GPXWrapper -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' -only-testing:LH2GPXWrapperTests`: TEST SUCCEEDED.
   Zusaetzlich ist ein echter Device-Launch via `LH2GPXWrapperUITestsLaunchTests.testLaunch` dokumentiert.
-  Offen bleibt ein frischer Xcode-Rerun fuer genau diesen konsolidierten Wrapper-Stand; auf diesem Server ist das derzeit nicht moeglich, weil `xcodebuild` hier nicht verfuegbar ist.
+  Offen bleibt ein frischer Xcode-Rerun fuer genau diesen konsolidierten Wrapper-Stand; auf diesem Server ist das derzeit nicht moeglich.
 
 ### Noch nicht umgesetzt
 

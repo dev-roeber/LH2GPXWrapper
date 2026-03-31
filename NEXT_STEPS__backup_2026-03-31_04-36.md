@@ -1,10 +1,9 @@
 # NEXT_STEPS
 
 Abgeleitet aus der ROADMAP. Nur die aktuell offenen, fachlich sinnvoll priorisierten Folgepakete.
-Der Audit-/Doku-Sync aus Phase 19.50 ist geschlossen und steht deshalb nicht mehr als offener Punkt hier.
-Der aktuelle Linux-Mindestnachweis fuer den eingebundenen Core-Stand ist `swift test` mit `228` Tests, `2` Skips und `0` Failures auf dem Audit-Host vom `2026-03-31`; ein frischer Wrapper-`xcodebuild`-Gegenlauf bleibt offen.
+Der Audit-/Doku-Sync aus Phase 19.50 ist in diesem Batch geschlossen und steht deshalb nicht mehr als offener Punkt hier.
 
-## 1. Phase 19.51 – Heatmap sowie Live / Insights / Days auf Apple verifizieren
+## 1. Phase 19.51 – Heatmap testen und auf Apple verifizieren
 
 Status: **teilweise umgesetzt**
 
@@ -13,22 +12,19 @@ Bereits drin:
 - Heatmap ist jetzt in README, ROADMAP und Feature-Inventar repo-wahr dokumentiert
 - kleine dedizierte Heatmap-Regressionstests liegen im Core-Repo vor
 - echter iPhone-15-Pro-Max-AX-Snapshot aus dem Wrapper zeigt `Heatmap` bei geladenem Import sichtbar im Uebersichtsbildschirm
-- `Days` ist repo-wahr standardmaessig `neu -> alt` sortiert
-- der dedizierte `Live`-Tab sowie die segmentierte `Insights`-Oberflaeche sind aus dem Core-Repo sichtbar im Wrapper angekommen
 
 Fehlt noch:
 - echtes Oeffnen des Heatmap-Sheets auf Apple-Hardware
 - visuelle Apple-Verifikation auf echter Apple-Hardware
 - Performance-Nachweis fuer groessere Imports auf Apple-Hardware
-- funktionale Apple-Verifikation fuer den dedizierten `Live`-Tab, die neue `Insights`-Informationsarchitektur und die `Days`-Default-Sortierung
 
-## 2. Phase 19.52 – Aktuellen Apple-CLI-Stand neu protokollieren
+## 2. Phase 19.52 – Apple-CLI-Stand stabil halten
 
 Status: **teilweise umgesetzt**
 
 Erledigt:
 - macOS-Build-Fehler behoben (Core-Compile-Fehler, Wrapper-SPM-Pfad)
-- `swift test` im Core-Repo laeuft auf dem Audit-Host vom `2026-03-31` durch: 228 Tests, 2 Skips, 0 Failures
+- `swift test` im Core-Repo laeuft auf diesem Linux-Server durch: 217 Tests, 2 Skips, 0 Failures
 - Apple-only Heatmap-Renderingstests sind fuer non-Apple-Plattformen korrekt gegated
 - `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED
 - `xcodebuild test -scheme LH2GPXWrapper -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' -only-testing:LH2GPXWrapperTests`: TEST SUCCEEDED
@@ -38,7 +34,6 @@ Erledigt:
 
 Fehlt noch:
 - frischer `xcodebuild`-Gegenlauf fuer genau diesen konsolidierten Wrapper-Stand; auf diesem Server derzeit nicht moeglich
-- derselbe frische Apple-Host-Gegenlauf fuer den eingebundenen Core-Stand, damit Wrapper- und Core-Doku denselben aktuellen Apple-Zeitstempel tragen
 
 ## 3. Phase 19.53 – Background-Recording auf echtem iPhone verifizieren
 

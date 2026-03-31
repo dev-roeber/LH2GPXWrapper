@@ -1,6 +1,6 @@
 # Lokaler iPhone-Betrieb – Runbook
 
-Stand: 2026-03-31
+Stand: 2026-03-30
 
 ---
 
@@ -125,15 +125,14 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 | iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
 | iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
 
-**Aktueller Befund (historische Device-Lage 2026-03-30, im Audit 2026-03-31 nur dokumentarisch abgeglichen):**
+**Aktueller Befund (2026-03-30):**
 - fuer diesen Batch liegt zusaetzlich ein positiver manueller Xcode-Start auf dem verbundenen iPhone vor; dieser Befund ist bewusst getrennt von den CLI-Build-/Test-Ergebnissen zu lesen
-- der zuletzt dokumentierte Stand zeigte lauffaehige Import-/Kartenflows auf iPhone 15 Pro Max und iPhone 12 Pro Max; ein frischer Device-Gegenlauf wurde in diesem Linux-Audit nicht erneut gefahren
+- App laeuft weiterhin auf iPhone 15 Pro Max und iPhone 12 Pro Max fuer die bereits verifizierten Import-/Kartenflows
 - Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
 - der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf; fuer diese Reaktivierung liegt in diesem Batch kein frischer Device-Nachweis vor
 - Live-Location / Live-Recording ist implementiert; optionales Background-Recording ist im aktuellen Code vorbereitet, aber ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen erweiterten Flow steht noch aus
 - die Optionen-Seite bietet jetzt auch Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
 - eine frische End-to-End-Geraeteverifikation fuer den konfigurierbaren Server-Upload steht noch aus
-- `xcodebuild` ist auf dem Audit-Host vom `2026-03-31` nicht verfuegbar; dieses Runbook wurde deshalb nur repo-wahr synchronisiert, nicht neu per Apple-Tooling bestaetigt
 
 **Apple Device Verification Batch 1 (2026-03-30, echtes iPhone):**
 - Geraet: `iPhone 15 Pro Max` (`iPhone16,2`), iOS `26.3 (23D127)`, per USB verbunden, entsperrt, Developer Mode aktiv

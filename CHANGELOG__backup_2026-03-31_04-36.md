@@ -1,13 +1,5 @@
 # CHANGELOG
 
-## 2026-03-31
-
-### Repo-Truth Deep Audit + Cross-Repo Doc Sync
-
-- Wrapper-Doku (`README`, `ROADMAP`, `NEXT_STEPS`, `docs/*`) gegen den tatsaechlichen Projektstand, den aktuellen Core-Teststand und die historischen Apple-Nachweise neu abgeglichen
-- aktuelle Linux-Verifikation des eingebundenen Core-Stands repo-wahr auf `swift test` mit `228` Tests, `2` Skips und `0` Failures aktualisiert; frische Apple-/Xcode-Laeufe wurden in diesem Audit nicht behauptet, weil `xcodebuild` auf dem Audit-Host nicht verfuegbar ist
-- zu starke Privacy-/Review-Aussagen fuer den optionalen Live-Upload zurueckgenommen; `PrivacyInfo.xcprivacy` und lokale Runbooks beschreiben jetzt nur noch den lokal sichtbaren Konfigurationsstand, nicht mehr eine unbelegte finale Apple-Konformitaet
-
 ## 2026-03-30
 
 ### Branch Consolidation / Doc Truth Sync
