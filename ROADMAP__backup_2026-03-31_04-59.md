@@ -1,13 +1,12 @@
 # ROADMAP
 
-## Aktueller Stand (2026-03-31)
+## Aktueller Stand (2026-03-30)
 
 ### Repo-Truth-Zusammenfassung
-Die letzte real belegte Apple-/Device-Verifikation bleibt der dokumentierte Apple-Stand vom 2026-03-17 beziehungsweise 2026-03-30; in diesem Audit wurde kein neuer Apple-Host-Lauf vorgetaeuscht.
-Der Audit-Block vom 2026-03-31 ist in dieser Revision eingearbeitet: Heatmap, `Live`-Tab, Upload-Batching, Wrapper-Auto-Restore, Default-Endpunkt und Teststatus sind jetzt dokumentarisch an den aktuellen Code angeglichen.
+Die letzte real belegte Apple-/Device-Verifikation bleibt der 2026-03-17 auf macOS/Xcode sowie iPhone 15 Pro Max und iPhone 12 Pro Max.
+Der Audit-Block vom 2026-03-30 ist in dieser Revision eingearbeitet: Heatmap, `Live`-Tab, Upload-Batching, Wrapper-Auto-Restore, Default-Endpunkt und Teststatus sind jetzt dokumentarisch an den aktuellen Code angeglichen.
 Diese ROADMAP trennt ab hier explizit zwischen `fertig`, `implementiert aber noch nicht voll verifiziert` und `noch nicht umgesetzt`.
 Historische Phasen weiter unten bleiben als Zeitstrahl stehen; wenn spaetere Commits fruehere Zwischenstaende ueberholt haben, gilt der aktuelle Kopfblock als massgeblicher Repo-Truth.
-Der frische Host-Nachweis dieses Audits ist Linux-only: der eingebundene Core-Stand laeuft mit `swift test` auf diesem Host gruen (`228` Tests, `2` Skips und `0` Failures), `git diff --check` ist sauber, und `xcodebuild` ist hier nicht verfuegbar.
 
 ### Repo-wahr abgeschlossen
 
@@ -34,7 +33,6 @@ Der frische Host-Nachweis dieses Audits ist Linux-only: der eingebundene Core-St
   Offen bleiben visuelle/performance-seitige Apple-Verifikation sowie ein echter Device-Durchlauf fuer das Sheet.
 - **`Live`-Tab**
   Der dedizierte 5. Tab fuer compact iOS 17+ ist implementiert und jetzt dokumentiert.
-  Der spaetere Batch hat diesen Pfad inhaltlich mit mehr Stat-Karten, Status-Chips, Quick Actions und Upload-Zustaenden deutlich ausgebaut.
   Offen bleiben echte iPhone-UX-/Device-Nachweise fuer diesen Pfad.
 - **Background-Live-Tracking**
   Codepfad, Permissions-Upgrade und Wrapper-Deklaration sind vorhanden.
@@ -43,16 +41,13 @@ Der frische Host-Nachweis dieses Audits ist Linux-only: der eingebundene Core-St
   Die Core-App-Shell haelt Auto-Restore bewusst geparkt, der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf.
   Offen bleibt eine frische Device-Verifikation fuer den reaktivierten Wrapper-Pfad.
 - **Server-Upload**
-  HTTPS-Upload, Bearer-Token, Retry-on-next-sample, Upload-Batching, Pause/Resume, manueller Flush sowie Queue-/Failure-/Last-Success-Status sind implementiert.
+  HTTPS-Upload, Bearer-Token, Retry-on-next-sample und Upload-Batching sind implementiert.
   Offen bleiben End-to-End-Device-Verifikation sowie finale Review-/Privacy-Einordnung auf Apple-Seite.
-- **Insights / Days UX**
-  Die Insights-Seite ist segmentiert (`Overview`, `Patterns`, `Breakdowns`) und `Days` ist repo-wahr `neu -> alt` sortiert.
-  Offen bleiben frische Apple-UI-Nachweise fuer die neue Informationsarchitektur, Chart-Lesbarkeit und das aktualisierte Day-Navigationsverhalten auf echter Hardware.
 - **Linux-/Apple-Teststatus**
   Der aktuelle Server-Check gegen den eingebundenen Core-Stand ist gruen:
-  `swift test` im Core-Repo laeuft auf Linux mit `228` ausgefuehrten Tests, `2` Skips und `0` Failures.
+  `swift test` im Core-Repo laeuft auf Linux mit `217` ausgefuehrten Tests, `2` Skips und `0` Failures.
   Apple-only Heatmap-Renderingstests sind fuer non-Apple-Plattformen korrekt ausgeblendet und blockieren den Linux-Lauf nicht mehr.
-  Der zuletzt dokumentierte Apple-CLI-Stand bleibt historisch der 2026-03-30:
+  Der zuletzt dokumentierte Apple-CLI-Stand bleibt der 2026-03-30:
   `xcodebuild build -scheme LH2GPXWrapper -destination generic/platform=iOS`: BUILD SUCCEEDED.
   `xcodebuild test -scheme LH2GPXWrapper -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest' -only-testing:LH2GPXWrapperTests`: TEST SUCCEEDED.
   Zusaetzlich ist ein echter Device-Launch via `LH2GPXWrapperUITestsLaunchTests.testLaunch` dokumentiert.
@@ -1024,7 +1019,7 @@ Bleibt geparkt bis Developer-Account-Zugang und tatsaechliche Durchfuehrung moeg
 
 **Definition of Done:** TestFlight-Build an Tester verteilt. App Store Metadaten vollstaendig. Keine Review-Guideline-Verstoesse bekannt.
 
-**Historischer lokaler Nachweis (2026-03-17):** `xcodebuild archive` erfolgreich (v1.0, Build 1). `PrivacyInfo.xcprivacy` war vorhanden und dokumentierte lokal sichtbar kein Tracking plus UserDefaults CA92.1. Die damalige Review-Notiz war nur eine lokale Arbeitsbewertung und kein belastbarer Apple-Freigabeclaim. App Icon ersetzt (Map-Pin + LH2GPX, kein Gradient-Placeholder mehr). Screenshot-Simulator-Workflow dokumentiert. TestFlight-Runbook in `docs/TESTFLIGHT_RUNBOOK.md` im Wrapper-Repo.
+**Lokal verifiziert (2026-03-17):** `xcodebuild archive` erfolgreich (v1.0, Build 1). PrivacyInfo.xcprivacy konform. Review-Guidelines geprueft: konform. App Icon ersetzt (Map-Pin + LH2GPX, kein Gradient-Placeholder mehr). Screenshot-Simulator-Workflow dokumentiert. TestFlight-Runbook in `docs/TESTFLIGHT_RUNBOOK.md` im Wrapper-Repo.
 
 **Lokal abgeschlossen (2026-03-17):** Screenshots via UI-Test erstellt (iPhone 17 Pro Max + iPad Pro 13" M5, iOS 26.3.1). Liegen in `docs/appstore-screenshots/` im Wrapper-Repo.
 

@@ -1,6 +1,6 @@
 # Lokaler iPhone-Betrieb – Runbook
 
-Stand: 2026-03-31
+Stand: 2026-03-30
 
 ---
 
@@ -8,8 +8,6 @@ Stand: 2026-03-31
 
 Die App lokal auf echten iPhones und im Simulator reproduzierbar starten, testen und verifizieren.
 Dieses Runbook ersetzt keine App-Store-Einreichung – es dient dem lokalen Entwicklungs- und Verifikationsbetrieb.
-
-Wichtig fuer diesen Audit: auf dem aktuellen Linux-Host ist `xcodebuild` nicht verfuegbar. Die Apple-/Simulator-/Device-Befunde unten bleiben deshalb historische Nachweise vom 2026-03-17 beziehungsweise 2026-03-30 und wurden in diesem Audit nicht frisch wiederholt.
 
 iPad-Betrieb kommt spaeter. Dieser Schritt fokussiert iPhone.
 
@@ -127,11 +125,11 @@ xcrun xctrace list devices 2>/dev/null | grep -v "Simulator"
 | iPhone 15 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
 | iPhone 12 Pro Max | iOS 26.2 | ✅ Deploy | ✅ Demo | ✅ | frische Verifikation offen | Codepfad aktiv, frische Verifikation offen | ✅ |
 
-**Historisch belegter Befund (2026-03-30):**
+**Aktueller Befund (2026-03-30):**
 - fuer diesen Batch liegt zusaetzlich ein positiver manueller Xcode-Start auf dem verbundenen iPhone vor; dieser Befund ist bewusst getrennt von den CLI-Build-/Test-Ergebnissen zu lesen
 - App laeuft weiterhin auf iPhone 15 Pro Max und iPhone 12 Pro Max fuer die bereits verifizierten Import-/Kartenflows
 - Google-Takeout-`location-history.json` / `.zip` wird im aktuellen Code direkt unterstuetzt
-- der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf; fuer diese Reaktivierung liegt in diesem Audit kein frischer Device-Nachweis vor
+- der Wrapper ruft `restoreBookmarkedFile()` beim Start wieder auf; fuer diese Reaktivierung liegt in diesem Batch kein frischer Device-Nachweis vor
 - Live-Location / Live-Recording ist implementiert; optionales Background-Recording ist im aktuellen Code vorbereitet, aber ein separat protokollierter iPhone- oder Simulator-UI-Durchlauf fuer diesen erweiterten Flow steht noch aus
 - die Optionen-Seite bietet jetzt auch Deutsch/Englisch und optionalen Server-Upload fuer akzeptierte Live-Recording-Punkte
 - eine frische End-to-End-Geraeteverifikation fuer den konfigurierbaren Server-Upload steht noch aus
@@ -174,7 +172,7 @@ Befunde in dieses Runbook als Tabelle nachtragen.
 
 > **Repo-Truth 2026-03-30:** Die Core-App-Shell haelt Auto-Restore weiter geparkt. Der Wrapper hat `restoreBookmarkedFile()` am 2026-03-20 wieder aktiviert. Der Testplan unten gilt deshalb fuer den aktuellen Wrapper-Code und braucht eine frische Device-Verifikation.
 
-### Code-Review-Status (historischer Device-Teilbefund 2026-03-30)
+### Code-Review-Status (2026-03-30)
 
 Die Restore-Logik ist im Wrapper aktiv im Code sichtbar. In Apple Device Verification Batch 1 liegt jetzt ein echter positiver Teilbefund vom iPhone 15 Pro Max vor: beim Device-Launch war bereits eine wiederhergestellte `location-history.zip` aktiv. Ein kontrollierter Positiv-/Fallback-/Clear-Durchlauf steht trotzdem weiter aus.
 
