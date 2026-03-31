@@ -2,12 +2,6 @@
 
 ## 2026-03-31
 
-### 4-Repo Status Documentation
-
-- Wrapper-README jetzt klarer auf die 4-Repo-Rolle als Apple-/Packaging-/Runbook-Bruecke und die Linux-Grenze ohne `xcodebuild` ausgerichtet
-- der im eingebundenen App-Stand vorbelegte Testendpunkt wird jetzt ausdruecklich als offener Produktpunkt statt als stiller Normalzustand dokumentiert
-- neues timestamped Status-Audit `AUDIT_WRAPPER_STATE_2026-03-31_08-48.md` haelt frische Linux-Grenzen, historische Apple-Nachweise und offene Folgearbeit getrennt fest
-
 ### Repo-Truth Deep Audit / Doc Sync
 
 - repo-weite Deep-Audit-Synchronisierung gegen Code, Wrapper-Konfiguration und Host-Realitaet; aktuelle Truth-Bloecke jetzt auf den frischen Core-Linux-Nachweis `swift test`: `228` Tests, `2` Skips und `0` Failures gezogen

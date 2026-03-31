@@ -91,7 +91,6 @@ Bereits drin:
 - repo-wahre Review-/Runbook-Wording-Basis ohne finale Apple-Freigabeclaims
 
 Fehlt noch:
-- hart kodierte bzw. vorbelegte Testserver-Defaults aus dem eingebundenen App-Stand bereinigen; Testserver/Testwerte duerfen nicht Produktstandard bleiben
 - End-to-End-Device-Verifikation mit echtem HTTPS-Endpunkt
 - Apple-Review-/Privacy-Einordnung fuer den optionalen Upload-Pfad ueber die jetzt korrigierten lokalen Texte hinaus
 - Entscheidung, ob Privacy-Dokumentation ueber den aktuellen Manifest-/Runbook-Stand hinaus erweitert werden muss
