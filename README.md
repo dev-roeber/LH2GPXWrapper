@@ -1,6 +1,8 @@
 # LH2GPXWrapper
 
-Xcode-Wrapper-Projekt fuer die iOS-App von LocationHistory2GPX.
+Historisches Split-Repo fuer das Xcode-Wrapper-Projekt der iOS-App von LocationHistory2GPX.
+
+**Hinweis:** Die primaere integrierte Weiterentwicklung von Core und Wrapper findet im Monorepo [`LocationHistory2GPX-Monorepo`](https://github.com/dev-roeber/LocationHistory2GPX-Monorepo) statt. Der Wrapper liegt dort unter `wrapper/`. Dieses Split-Repo besteht weiter.
 
 ## Rolle dieses Repos
 
@@ -9,7 +11,9 @@ Xcode-Wrapper-Projekt fuer die iOS-App von LocationHistory2GPX.
 - liefert Bundle-Metadaten, App-Icon, Privacy-Manifest und Signing-Konfiguration
 - ist der Weg zu Geraetedeploy, TestFlight und App Store
 
-## Zwei-Repo-Architektur
+## Architektur (Split-Repo-Modus)
+
+Wenn dieses Split-Repo und `LocationHistory2GPX-iOS` als getrennte lokale Checkouts vorliegen:
 
 | Aspekt | Core-Repo (`LocationHistory2GPX-iOS`) | Wrapper-Repo (`LH2GPXWrapper`) |
 |--------|----------------------------------------|-------------------------------|
@@ -19,9 +23,11 @@ Xcode-Wrapper-Projekt fuer die iOS-App von LocationHistory2GPX.
 | Tests | Unit-Tests via SwiftPM | Xcode-Unit- und UI-Tests |
 | Abhaengigkeit | keins (eigenstaendig) | haengt vom Core-Repo ab (lokale SPM-Referenz) |
 
-## SPM-Abhaengigkeit
+Im Monorepo liegt der Core im Root und der Wrapper unter `wrapper/`; das Xcode-Projekt referenziert den Core dort per `../..`.
 
-Das Xcode-Projekt referenziert das Core-Repo als lokales Swift Package:
+## SPM-Abhaengigkeit (Split-Repo)
+
+In diesem Split-Repo referenziert das Xcode-Projekt das Core-Repo als lokales Swift Package:
 
 ```
 ../LocationHistory2GPX-iOS
@@ -146,8 +152,8 @@ Vollstaendiger Submission-Leitfaden: `docs/TESTFLIGHT_RUNBOOK.md`
 
 ## Roadmap
 
-Die vollstaendige Delivery-Roadmap liegt jetzt identisch in beiden Repos:
-- [ROADMAP.md](/home/sebastian/repos/LH2GPXWrapper/ROADMAP.md)
-- [NEXT_STEPS.md](/home/sebastian/repos/LH2GPXWrapper/NEXT_STEPS.md)
+Die verbindliche Delivery-Roadmap wird primaer im Monorepo gefuehrt:
+- [ROADMAP.md](https://github.com/dev-roeber/LocationHistory2GPX-Monorepo/blob/main/ROADMAP.md)
+- [NEXT_STEPS.md](https://github.com/dev-roeber/LocationHistory2GPX-Monorepo/blob/main/NEXT_STEPS.md)
 
-Diese Dateien muessen zwischen Core-Repo und Wrapper-Repo inhaltlich synchron gehalten werden.
+In diesem Split-Repo liegen ROADMAP.md und NEXT_STEPS.md als gespiegelter Stand.

@@ -2,6 +2,12 @@
 
 ## 2026-03-31
 
+### Monorepo Truth-Sync
+
+- `README.md`: Einleitung als historisches Split-Repo mit Verweis auf Monorepo `LocationHistory2GPX-Monorepo` aktualisiert; "Zwei-Repo-Architektur" als Split-Repo-Modus-Kontext eingeordnet statt als primaere empfohlene Struktur
+- `README.md`: SPM-Pfad-Block als Split-Repo-Kontext gekennzeichnet; Monorepo-Hinweis ergaenzt, dass Core dort per `../..` referenziert wird
+- `README.md`: Roadmap-Abschnitt aktualisiert; verbindliche ROADMAP.md/NEXT_STEPS.md werden primaer im Monorepo gefuehrt; veraltete Sync-Pflicht zwischen den zwei Split-Repos entfernt
+
 ### Repo-Truth Deep Audit / Doc Sync
 
 - repo-weite Deep-Audit-Synchronisierung gegen Code, Wrapper-Konfiguration und Host-Realitaet; aktuelle Truth-Bloecke jetzt auf den frischen Core-Linux-Nachweis `swift test`: `228` Tests, `2` Skips und `0` Failures gezogen
