@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2026-04-01
+
+### DE Localisation (Truth-Sync aus LocationHistory2GPX-iOS)
+
+Die folgenden Aenderungen wurden im historischen Split-Repo `LocationHistory2GPX-iOS` entwickelt und nach `main` gemergt. Dieser Eintrag haelt den Stand fuer Doku-Konsistenz fest.
+
+- `AppLanguageSupport.swift`: vollstaendige DE-Abdeckung fuer Analytics/Insights/Overview/Custom-Range-Strings, Format-Strings, Monatsnamen, rangeDescription Singular/Plural, Custom-Date-Range-Sheet, Overlap-Map und InsightsChartSupport-Hints
+- `CustomDateRangeValidator.chipLabel`: Monatsnamen jetzt lokalisiert via `DateFormatter.shortMonthSymbols`
+- `AnalyticsDateRangeBuilder.rangeDescription`: optionaler `language`-Parameter; Singular/Plural korrekt via Format-String-Lookup
+- `InsightsChartSupport`: `distanceSectionMessage`, `monthlyTrendSectionHint`, `weekdaySectionHint` je mit optionalem `language`-Parameter
+- Alle 325 Tests gruen, 2 Skips, 0 Failures
+
 ## 2026-03-31
 
 ### Monorepo Truth-Sync
