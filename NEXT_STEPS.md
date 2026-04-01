@@ -95,13 +95,24 @@ Fehlt noch:
 - Apple-Review-/Privacy-Einordnung fuer den optionalen Upload-Pfad ueber die jetzt korrigierten lokalen Texte hinaus
 - Entscheidung, ob Privacy-Dokumentation ueber den aktuellen Manifest-/Runbook-Stand hinaus erweitert werden muss
 
-## 7. Phase 19.57 – Erst danach weitere Feature-Arbeit
+## 7. Phase 19.57 – Weiterer Insights-Ausbau + breitere Lokalisierung (teilweise umgesetzt)
 
-Status: **bewusst nachgelagert**
+Status: **teilweise umgesetzt**
 
-Kommt erst nach den Verifikations- und Wahrheitsthemen oben:
+Bereits drin (2026-04-01 DE-Lokalisierung):
+- alle neuen Analytics/Insights/Overview/Custom-Range-Strings vollstaendig auf DE lokalisiert: Preset-Chips, KPI-Labels, KPI-Notes, Custom-Range-Sheet, Overlap-Map-Strings, Filter-Picker, Map-Meldungen, Empty/Sparse-States
+- `AppCustomDateRangeSheet` leitet alle user-facing Strings ueber `preferences.localized(_:)`
+- `AppOverlapMapView` leitet alle UI-Strings ueber `t(_:)`
+
+Bereits drin (2026-04-01 DE-Lokalisierung Finish + rangeDescription + InsightsChartSupport):
+- `CustomDateRangeValidator.chipLabel` lokalisiert; Monatsnamen via `DateFormatter.shortMonthSymbols`
+- `AnalyticsDateRangeBuilder.rangeDescription` – Singular/Plural und alle Presets lokalisiert
+- `InsightsChartSupport.distanceSectionMessage`, `.monthlyTrendSectionHint`, `.weekdaySectionHint` – optionaler `language`-Parameter
+- Alle 325 Tests gruen, 2 Skips, 0 Failures
+
+Fehlt noch:
 - weitere Exportformate wie `CSV` oder `KMZ`
-- weiterer Insights-Ausbau ueber den aktuellen Batch hinaus sowie Zeitraumsauswahl
-- breitere Lokalisierungsabdeckung
+- frische Apple-UI-Verifikation fuer Range-Picker, Custom-Datumsbereich-Sheet und Overlap-Karte auf echtem iPhone
+- vollstaendige Lokalisierungsabdeckung aller verbleibenden EN-Strings
 
 Contract-Files werden weiterhin ausschliesslich vom Producer-Repo aus aktualisiert.
